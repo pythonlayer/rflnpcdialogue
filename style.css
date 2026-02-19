@@ -1,0 +1,728 @@
+/* ---------- CUSTOM FONTS ---------- */
+@font-face { font-family: "Annabel"; src: url("fonts/annabel 1.ttf") format("truetype"); }
+@font-face { font-family: "AshleyScript"; src: url("fonts/AshleyScriptMTStdRg.TTF") format("truetype"); }
+@font-face { font-family: "Blackadder"; src: url("fonts/BlackadderITCStd.otf") format("opentype"); }
+@font-face { font-family: "BrianneHand"; src: url("fonts/Brianne'shand.ttf") format("truetype"); }
+@font-face { font-family: "Century751BTBold"; src: url("fonts/Century 751 Bold.otf") format("opentype"); }
+@font-face { font-family: "Cromagnum"; src: url("fonts/cro.ttf") format("truetype"); }
+@font-face { font-family: "Didot"; src: url("fonts/didot.otf") format("opentype"); }
+@font-face { font-family: "HouseOfTerror"; src: url("fonts/HouseofTerror Regular.otf") format("opentype"); }
+@font-face { font-family: "InformalRoman"; src: url("fonts/InformalRoman-Regular.ttf") format("truetype"); }
+@font-face { font-family: "KrustyKrab"; src: url("fonts/KrustyKrab.ttf") format("truetype"); }
+@font-face { font-family: "NewsFlashBB"; src: url("fonts/NewsFlashBB.ttf") format("truetype"); }
+@font-face { font-family: "ROGLyonsType"; src: url("fonts/ROGLyonsType-Regular.ttf") format("truetype"); }
+@font-face { font-family: "RockwellCondensed"; src: url("fonts/Rockwell Condensed Bold.otf") format("opentype"); }
+@font-face { font-family: "UnmaskedBB"; src: url("fonts/UnmaskedBB.ttf") format("truetype"); }
+
+body { margin: 0; font-family: Arial, sans-serif; font-size: large;background: #111; color: white; touch-action: manipulation; }
+html { touch-action: manipulation; }
+
+/* ---------- Responsive scale variables (Dave & Penny + their bubbles) ---------- */
+:root {
+    /* Desktop defaults (can be edited) */
+    --dave-scale-desktop: 1.3;
+    --penny-scale-desktop: 1.6;
+    --spongebob-scale-desktop: 1.4;
+    --bubble-dave-scale-desktop: 1;
+    --bubble-penny-scale-desktop: 1;
+
+    /* Mobile defaults (can be edited) */
+    --dave-scale-mobile: 2;
+    --penny-scale-mobile: 1.2;
+    --spongebob-scale-mobile: 1.2;
+    --bubble-dave-scale-mobile: 0.9;
+    --bubble-penny-scale-mobile: 0.9;
+
+    /* Active scale values (switch via media queries below) */
+    --dave-scale: var(--dave-scale-desktop);
+    --penny-scale: var(--penny-scale-desktop);
+    --spongebob-scale: var(--spongebob-scale-desktop);
+    --bubble-dave-scale: var(--bubble-dave-scale-desktop);
+    --bubble-penny-scale: var(--bubble-penny-scale-desktop);
+
+    /* ---------- Dave positioning variables (Desktop) ---------- */
+    --dave-left-desktop: 1vw;
+    --dave-bottom-desktop: -26%;
+    --dave-right-desktop: auto;
+
+    /* ---------- Dave positioning variables (Mobile) ---------- */
+    --dave-left-mobile: 2vw;
+    --dave-bottom-mobile: -26%;
+    --dave-right-mobile: auto;
+
+    /* ---------- Penny positioning variables (Desktop) ---------- */
+    --penny-left-desktop: auto;
+    --penny-bottom-desktop: 13%;
+    --penny-right-desktop: -17%;
+
+    /* ---------- Penny positioning variables (Mobile) ---------- */
+    --penny-left-mobile: auto;
+    --penny-bottom-mobile: 30%;
+    --penny-right-mobile: -1%;
+
+    /* ---------- SpongeBob positioning variables (Desktop) ---------- */
+    --spongebob-left-desktop: auto;
+    --spongebob-bottom-desktop: 10%;
+    --spongebob-right-desktop: 2%;
+
+    /* ---------- SpongeBob positioning variables (Mobile) ---------- */
+    --spongebob-left-mobile: auto;
+    --spongebob-bottom-mobile: 18%;
+    --spongebob-right-mobile: 2%;
+
+    /* Active positioning values (switch via media queries) */
+    --dave-left: var(--dave-left-desktop);
+    --dave-bottom: var(--dave-bottom-desktop);
+    --dave-right: var(--dave-right-desktop);
+
+    --penny-left: var(--penny-left-mobile);
+    --penny-bottom: var(--penny-bottom-desktop);
+    --penny-right: var(--penny-right-desktop);
+
+    --spongebob-left: var(--spongebob-left-desktop);
+    --spongebob-bottom: var(--spongebob-bottom-desktop);
+    --spongebob-right: var(--spongebob-right-desktop);
+
+    /* ---------- Tugboat positioning & scale (Desktop) ---------- */
+    --tugboat-scale-desktop: 1.2;
+    --tugboat-left-desktop: 1vw;
+    --tugboat-bottom-desktop: 1.8%;
+
+    /* ---------- Tugboat positioning & scale (Mobile) ---------- */
+    --tugboat-scale-mobile: 1.8;
+    --tugboat-left-mobile: 2vw;
+    --tugboat-bottom-mobile: -20%;
+
+    /* Active tugboat values */
+    --tugboat-scale: var(--tugboat-scale-desktop);
+    --tugboat-left: var(--tugboat-left-desktop);
+    --tugboat-bottom: var(--tugboat-bottom-desktop);
+
+    /* ---------- Plankton positioning & scale (Desktop) ---------- */
+    --plankton-scale-desktop: 1.1;
+    --plankton-left-desktop: auto;
+    --plankton-bottom-desktop: 1%;
+    --plankton-right-desktop: 2%;
+
+    /* ---------- Plankton positioning & scale (Mobile) ---------- */
+    --plankton-scale-mobile: 1.5;
+    --plankton-left-mobile: auto;
+    --plankton-bottom-mobile: 20%;
+    --plankton-right-mobile: 2%;
+
+    /* Active plankton values */
+    --plankton-scale: var(--plankton-scale-desktop);
+    --plankton-left: var(--plankton-left-desktop);
+    --plankton-bottom: var(--plankton-bottom-desktop);
+    --plankton-right: var(--plankton-right-desktop);
+
+    /* ---------- Douglas positioning & scale (Desktop) ---------- */
+    --douglas-scale-desktop: 1.9;
+    --douglas-left-desktop: auto;
+    --douglas-bottom-desktop: 12%;
+    --douglas-right-desktop: 1%;
+
+    /* ---------- Douglas positioning & scale (Mobile) ---------- */
+    --douglas-scale-mobile: 1.6;
+    --douglas-left-mobile: auto;
+    --douglas-bottom-mobile: 18%;
+    --douglas-right-mobile: 5%;
+
+    /* Active douglas values */
+    --douglas-scale: var(--douglas-scale-desktop);
+    --douglas-left: var(--douglas-left-desktop);
+    --douglas-bottom: var(--douglas-bottom-desktop);
+    --douglas-right: var(--douglas-right-desktop);
+}
+
+
+/* ---------- EDITOR ---------- */
+#editor { width: 900px; margin: 15px auto; padding: 10px; background: #222; }
+#editor label { display: block; margin-top: 10px; font-weight: bold; }
+#editor select, #editor textarea, #editor button, #editor input[type="text"], #editor input[type="file"], #editor input[type="color"] {
+    width: 100%; margin-top: 5px; padding: 6px; background: #333; color: white; border: 1px solid #444; font-size: 14px; box-sizing: border-box;
+    -webkit-appearance: none; /* Remove iOS default styling */
+    appearance: none;
+}
+#editor input[type="color"] { padding: 3px; cursor: pointer; }
+#editor button { cursor: pointer; transition: background 0.2s; }
+#editor button:active { background: #555; transform: scale(0.98); }
+
+#npcCreatorSection h3 { color: #4CAF50; }
+#voiceLinesContainer { box-sizing: border-box; transition: all 0.2s; }
+#voiceFilesList { color: #888; font-size: 12px; }
+#voiceFilesList ul { color: #ccc; }
+
+/* Compact button layout for dialogue controls */
+#editor > button {
+    display: inline-block;
+    width: calc(25% - 4px);
+    margin: 5px 2px 5px 0;
+    padding: 8px 4px;
+    font-size: 13px;
+    white-space: nowrap;
+}
+
+#editor > button:nth-child(4n+5) {
+    margin-left: 0;
+}
+
+@media (max-width: 768px) {
+    #editor > button {
+        width: calc(50% - 3px);
+        font-size: 12px;
+        padding: 6px 3px;
+        margin: 4px 1px 4px 0;
+    }
+}
+
+@media (max-width: 600px) {
+    #editor > button {
+        width: 100%;
+        font-size: 12px;
+        padding: 8px;
+        margin: 4px 0;
+    }
+}
+
+/* NPC Management Section */
+#npcManagementSection h3 { color: #888; }
+#customNpcList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: flex-start;
+}
+
+.custom-npc-item {
+    background: #333;
+    border: 1px solid #555;
+    border-radius: 4px;
+    padding: 6px 8px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: #ddd;
+}
+
+.custom-npc-item .npc-name {
+    font-weight: bold;
+    color: #4CAF50;
+}
+
+.custom-npc-item .remove-btn {
+    background: #c44;
+    color: white;
+    border: none;
+    border-radius: 2px;
+    padding: 2px 6px;
+    cursor: pointer;
+    font-size: 11px;
+    transition: background 0.2s;
+}
+
+.custom-npc-item .remove-btn:hover {
+    background: #a33;
+}
+
+@media (max-width: 768px) {
+    #editor { width: 95%; padding: 8px; }
+    #editor select, #editor textarea, #editor button, #editor input[type="text"], #editor input[type="file"], #editor input[type="color"] { font-size: 16px; padding: 8px; }
+}
+
+.timeline-line button:hover { background: #666; }
+
+/* ---------- GAME ---------- */
+#game { position: fixed; inset: 0; display: none; background: black; }
+#lawn { position: absolute; inset: 0; background: url("ModernStage.png") center / cover no-repeat; background-size: cover; background-position: center; background-repeat: no-repeat; image-rendering: optimizeQuality; }
+
+/* ---------- NPCs ---------- */
+.npc { position: absolute; pointer-events: auto; display: none; cursor: pointer; width: auto; height: auto; max-height: 30vh; max-width: 40vw; object-fit: contain; user-select: none; -webkit-user-select: none; }
+
+/* Keyframe animations for slide-in from right */
+@keyframes slideInFromRight {
+    from {
+        transform: translateX(-100vw) scale(var(--dave-scale));
+        opacity: 1;
+    }
+    to {
+        transform: translateX(0) scale(var(--dave-scale));
+        opacity: 1;
+    }
+}
+
+@keyframes slideInFromRightPenny {
+    from {
+        transform: translateX(100vw) scale(var(--penny-scale));
+        opacity: 1;
+    }
+    to {
+        transform: translateX(0) scale(var(--penny-scale));
+        opacity: 1;
+    }
+}
+
+/* Specific classes for front/back NPCs */
+.npc.front { bottom: 12vh; left: 3vw; max-height: 25vh; }
+.npc.front.right { right: 3vw; left: auto; }
+.npc.back { top: 4vh; transform: translateX(-50%); max-height: 28vh; }
+
+/* Fade in/out animations for spawn/despawn (back NPCs only) */
+.npc { transition: opacity 0.35s ease, transform 0.35s ease; opacity: 0; }
+.npc.show { display: block; opacity: 1; }
+.npc.back.show { display: block; opacity: 1; transform: translateY(0); }
+.npc.back.hide { opacity: 0; transform: translateY(12px); }
+
+/* Slide animations for front NPCs (Dave & Penny) */
+#dave.show {
+    animation: slideInFromRight 0.6s ease-out forwards;
+}
+#dave.hide {
+    opacity: 0;
+}
+
+#penny.show {
+    animation: slideInFromRightPenny 0.6s ease-out forwards;
+}
+#penny.hide {
+    opacity: 0;
+}
+
+/* ABS (AntiBullySquad) specific positioning */
+#antibullysquad { top: 4vh; transform: translateX(-50%); max-height: 28vh; }
+
+/* N3XT (like ABS, uses emotion-based sprites) */
+#n3xt { top: 4vh; transform: translateX(-50%); max-height: 28vh; }
+
+/* N3XT Dave skin - positioned higher since it's shorter */
+#dave.n3xt-skin {
+    bottom: calc(var(--dave-bottom) + 25vh);
+    max-height: 50% !important;
+}
+
+/* Birthday Dave skin - slightly bigger */
+#dave.birthday-skin {
+    max-height: 85% !important;
+}
+
+/* Bottom/front NPCs: adapt to viewport height so they look sensible on mobile */
+#dave {
+    bottom: var(--dave-bottom);
+    left: var(--dave-left);
+    right: var(--dave-right);
+    max-height: 75%;
+    transform: scale(var(--dave-scale));
+}
+#penny {
+    bottom: var(--penny-bottom);
+    left: var(--penny-left);
+    right: var(--penny-right);
+    transform: scale(var(--penny-scale));
+}
+
+/* Chimanta: explicit size & position so it behaves consistently across viewports
+   Default values here can be adjusted to resize or reposition Chimanta easily. */
+#chimanta {
+    /* place Chimanta near the bottom-right but not off-screen */
+    bottom: -5vh;
+    right: 3vw;
+    left: auto;
+    /* scale controls visible size; increase to make Chimanta larger */
+    transform: scale(1.3);
+    max-height: 45vh;
+    max-width: 40vw;
+}
+
+/* Adjust Chimanta for very small screens (phones) */
+@media (max-width: 480px) {
+    #chimanta {
+        bottom: -5vh;
+        right: 2vw;
+        transform: scale(1.1);
+        max-height: 30vh;
+    }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+    #chimanta {
+        bottom: -5vh;
+        right: 2.5vw;
+        transform: scale(1);
+        max-height: 35vh;
+    }
+}
+#spongebob {
+    bottom: var(--spongebob-bottom);
+    left: var(--spongebob-left);
+    right: var(--spongebob-right);
+    transform: scale(var(--spongebob-scale));
+}
+
+#tugboat {
+    bottom: var(--tugboat-bottom);
+    left: var(--tugboat-left);
+    right: auto;
+    transform: scale(var(--tugboat-scale));
+}
+
+#plankton {
+    bottom: var(--plankton-bottom);
+    left: var(--plankton-left);
+    right: var(--plankton-right);
+    transform: scale(var(--plankton-scale));
+}
+
+#douglas {
+    bottom: var(--douglas-bottom);
+    left: var(--douglas-left);
+    right: var(--douglas-right);
+    transform: scale(var(--douglas-scale));
+}
+#zomboss, #zombert, #camo, #lucky, #nanny, #missinfo, #huntaria, #greedy { top: 4vh; transform: translateX(-50%); max-height: 28vh; }
+
+/* High-DPI: try to use a 2x background if available to avoid blur */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    #lawn { background-image: url("ModernStage.png"); background-size: cover; }
+}
+
+/* Ultra-mobile (small phones - max 480px width) */
+@media (max-width: 480px) {
+    .npc { max-height: 18vh; max-width: 50vw; }
+    .npc.front { max-height: 20vh; left: 2vw; }
+    .npc.front.right { right: 2vw; }
+    .npc.back { max-height: 16vh; }
+    #dave { max-height: 60%; }
+    #penny { max-height: 60%; }
+    .dialogue span { font-size: 14px; }
+    #hint { font-size: 11px; }
+}
+
+/* Mobile (phones - 481px to 600px) */
+@media (max-width: 600px) and (min-width: 481px) {
+    .npc { max-height: 22vh; max-width: 48vw; }
+    .npc.front { max-height: 24vh; }
+    .npc.back { max-height: 19vh; }
+    .dialogue span { font-size: 16px; }
+}
+
+/* Small mobile fallback (max 600px overall) */
+@media (max-width: 600px) {
+    .npc { max-height: 20vh; max-width: 45vw; }
+    .npc.front { max-height: 22vh; }
+    .npc.back { max-height: 18vh; }
+    .dialogue span { font-size: 5.5vw; }
+    #lawn { background-size: cover; background-position: center; }
+    /* switch active scales & positioning to mobile-specific values */
+    :root {
+        --dave-scale: var(--dave-scale-mobile);
+        --penny-scale: var(--penny-scale-mobile);
+        --spongebob-scale: var(--spongebob-scale-mobile);
+        --tugboat-scale: var(--tugboat-scale-mobile);
+        --plankton-scale: var(--plankton-scale-mobile);
+        --douglas-scale: var(--douglas-scale-mobile);
+        --bubble-dave-scale: var(--bubble-dave-scale-mobile);
+        --bubble-penny-scale: var(--bubble-penny-scale-mobile);
+        --dave-left: var(--dave-left-mobile);
+        --dave-bottom: var(--dave-bottom-mobile);
+        --dave-right: var(--dave-right-mobile);
+        --penny-left: var(--penny-left-mobile);
+        --penny-bottom: var(--penny-bottom-mobile);
+        --penny-right: var(--penny-right-mobile);
+        --tugboat-left: var(--tugboat-left-mobile);
+        --tugboat-bottom: var(--tugboat-bottom-mobile);
+        --plankton-left: var(--plankton-left-mobile);
+        --plankton-bottom: var(--plankton-bottom-mobile);
+        --plankton-right: var(--plankton-right-mobile);
+        --douglas-left: var(--douglas-left-mobile);
+        --douglas-bottom: var(--douglas-bottom-mobile);
+        --douglas-right: var(--douglas-right-mobile);
+        --spongebob-left: var(--spongebob-left-mobile);
+        --spongebob-bottom: var(--spongebob-bottom-mobile);
+        --spongebob-right: var(--spongebob-right-mobile);
+    }
+}
+
+/* Tablet (portrait & landscape - 601px to 1024px) */
+@media (min-width: 601px) and (max-width: 1024px) {
+    .npc { max-height: 26vh; max-width: 42vw; }
+    .npc.front { max-height: 26vh; left: 3vw; }
+    .npc.front.right { right: 3vw; }
+    .npc.back { max-height: 27vh; }
+    #dave { max-height: 70%; }
+    #penny { max-height: 70%; }
+    .dialogue span { font-size: 18px; }
+    /* switch to desktop positioning for tablet */
+    :root {
+        --dave-left: var(--dave-left-desktop);
+        --dave-bottom: var(--dave-bottom-desktop);
+        --dave-right: var(--dave-right-desktop);
+        --penny-left: var(--penny-left-desktop);
+        --penny-bottom: var(--penny-bottom-desktop);
+        --penny-right: var(--penny-right-desktop);
+        --spongebob-left: var(--spongebob-left-desktop);
+        --spongebob-bottom: var(--spongebob-bottom-desktop);
+        --spongebob-right: var(--spongebob-right-desktop);
+        --dave-scale: var(--dave-scale-desktop);
+        --penny-scale: var(--penny-scale-desktop);
+        --spongebob-scale: var(--spongebob-scale-desktop);
+    }
+}
+
+/* Desktop (1025px to 1440px) */
+@media (min-width: 1025px) and (max-width: 1440px) {
+    .npc { max-height: 30vh; max-width: 40vw; }
+    .npc.front { max-height: 25vh; left: 3vw; }
+    .npc.front.right { right: 3vw; }
+    .npc.back { max-height: 28vh; }
+    #dave { max-height: 75%; }
+    #penny { max-height: 75%; }
+    .dialogue span { font-size: 22px; }
+}
+
+/* Large desktop (1440px+) */
+@media (min-width: 1441px) {
+    .npc { max-height: 32vh; max-width: 38vw; }
+    .npc.front { max-height: 28vh; left: 3.5vw; }
+    .npc.front.right { right: 3.5vw; }
+    .npc.back { max-height: 30vh; }
+    #dave { max-height: 80%; }
+    #penny { max-height: 80%; }
+    .dialogue span { font-size: 24px; }
+}
+
+/* ---------- Dialogue Boxes ---------- */
+.dialogue { 
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 150px;
+    background: rgba(0, 0, 0, 0.45);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+#bottomDialogue { bottom: 30px; } #topDialogue { top: 260px; }
+.dialogue span { max-width: 60%; font-size: 22px; line-height: 1.4; word-wrap: break-word; }
+
+@media (max-width: 600px) {
+    #bottomDialogue, #topDialogue { height: auto; padding: 15px; }
+    .dialogue span { font-size: 18px; max-width: 90%; }
+}
+
+/* Landscape mode on small screens */
+@media (max-height: 500px) and (orientation: landscape) {
+    .npc { max-height: 70vh !important; }
+    #bottomDialogue, #topDialogue { height: auto; padding: 10px; bottom: 10px !important; top: auto !important; }
+    .dialogue span { font-size: 14px; }
+    .speechBubble {
+        --bubble-font-size: 12px;
+    }
+    #speech_bubble_left, #speech_bubble_right {
+        bottom: 80px !important;
+        --bubble-width: 29%;
+        --bubble-max-width: 350px;
+    }
+}
+
+/* Landscape mode on medium/large screens */
+@media (max-height: 700px) and (orientation: landscape) {
+    .npc { max-height: 80vh; }
+    .speechBubble {
+        --bubble-width: 29%;
+    }
+}
+
+/* ---------- Speech Bubbles (Front NPCs - Dave & Penny) ---------- */
+.speechBubble {
+    --bubble-width: 29%;
+    --bubble-max-width: 600px;
+    --bubble-aspect: 16/9;
+    --bubble-font-size: 18px;
+    --bubble-text-color: black;
+    --bubble-bottom: 30px;
+    --bubble-text-top: 22%;
+    --bubble-text-height: 48%;
+    --bubble-text-width: 56%;
+    --bubble-text-left: 21%;
+    --bubble-text-padding: 12px;
+
+    position: absolute;
+    bottom: var(--bubble-bottom);
+    display: none;
+    width: var(--bubble-width);
+    max-width: var(--bubble-max-width);
+    height: auto;
+    aspect-ratio: var(--bubble-aspect);
+    opacity: 0;
+}
+
+.speechBubble.show {
+    display: block;
+    opacity: 1;
+}
+
+/* Dave bubble (left side) */
+#speech_bubble_left {
+    left: 15%;
+    bottom: 230px;
+    transform: translateX(0) scale(var(--bubble-dave-scale));
+    --bubble-text-left: 19%;
+}
+
+/* Penny bubble (right side) */
+#speech_bubble_right {
+    right: 11%;
+    bottom: 220px;
+    left: auto;
+    transform: scale(var(--bubble-penny-scale));
+    --bubble-text-left: 24%;
+}
+
+.bubbleImage {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.bubbleText {
+    position: absolute;
+    z-index: 2;
+    top: var(--bubble-text-top);
+    left: var(--bubble-text-left);
+    width: var(--bubble-text-width);
+    height: var(--bubble-text-height);
+    text-align: center;
+    font-size: var(--bubble-font-size);
+    font-weight: bold;
+    color: var(--bubble-text-color);
+    line-height: 1.1;
+    word-wrap: break-word;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    padding: var(--bubble-text-padding);
+    box-sizing: border-box;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ===== SPEECH BUBBLE RESPONSIVE SIZING ===== */
+
+/* Ultra-mobile (≤480px) */
+@media (max-width: 480px) {
+    .speechBubble {
+        --bubble-width: 29%;
+        --bubble-max-width: 300px;
+        --bubble-font-size: 13px;
+        --bubble-text-top: 23%;
+        --bubble-text-height: 50%;
+        --bubble-text-width: 58%;
+        --bubble-text-padding: 8px;
+    }
+    #speech_bubble_left { --bubble-text-left: 20%; }
+    #speech_bubble_right { --bubble-text-left: 22%; }
+}
+
+/* Mobile (481px-600px) */
+@media (min-width: 481px) and (max-width: 600px) {
+    .speechBubble {
+        --bubble-width: 29%;
+        --bubble-max-width: 350px;
+        --bubble-font-size: 14px;
+        --bubble-text-top: 22%;
+        --bubble-text-height: 50%;
+        --bubble-text-width: 57%;
+        --bubble-text-padding: 10px;
+    }
+    #speech_bubble_left {
+        left: 7%;
+        bottom: 160px;
+        --bubble-text-left: 20%;
+    }
+    #speech_bubble_right {
+        right: 7%;
+        bottom: 160px;
+        --bubble-text-left: 22%;
+    }
+}
+
+/* Tablet (601px-1024px) */
+@media (min-width: 601px) and (max-width: 1024px) {
+    .speechBubble {
+        --bubble-width: 52%;
+        --bubble-max-width: 450px;
+        --bubble-font-size: 16px;
+        --bubble-text-top: 22%;
+        --bubble-text-height: 49%;
+        --bubble-text-width: 57%;
+        --bubble-text-padding: 12px;
+    }
+    #speech_bubble_left {
+        left: 12%;
+        bottom: 200px;
+        --bubble-text-left: 19%;
+    }
+    #speech_bubble_right {
+        right: 10%;
+        bottom: 200px;
+        --bubble-text-left: 23%;
+    }
+}
+
+/* Desktop (1025px-1440px) */
+@media (min-width: 1025px) and (max-width: 1440px) {
+    .speechBubble {
+        --bubble-width: 29%;
+        --bubble-max-width: 550px;
+        --bubble-font-size: 18px;
+        --bubble-text-top: 22%;
+        --bubble-text-height: 48%;
+        --bubble-text-width: 55%;
+        --bubble-text-padding: 14px;
+    }
+    #speech_bubble_left {
+        left: 15%;
+        bottom: 230px;
+        --bubble-text-left: 18%;
+    }
+    #speech_bubble_right {
+        right: 11%;
+        bottom: 220px;
+        --bubble-text-left: 23%;
+    }
+}
+
+/* Large desktop (1441px+) */
+@media (min-width: 1441px) {
+    .speechBubble {
+        --bubble-width: 29%;
+        --bubble-max-width: 650px;
+        --bubble-font-size: 20px;
+        --bubble-text-top: 22%;
+        --bubble-text-height: 47%;
+        --bubble-text-width: 54%;
+        --bubble-text-padding: 16px;
+    }
+    #speech_bubble_left {
+        left: 16%;
+        bottom: 250px;
+        --bubble-text-left: 17%;
+    }
+    #speech_bubble_right {
+        right: 12%;
+        bottom: 240px;
+        --bubble-text-left: 23%;
+    }
+}
+
+/* ---------- Hint ---------- */
+#hint { position: absolute; bottom: 10px; right: 20px; font-size: 14px; opacity: 0.7; }
