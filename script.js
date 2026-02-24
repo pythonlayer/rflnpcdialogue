@@ -410,25 +410,25 @@ function censorText(text) {
 
 /* ---------- DAVE SOUNDS ---------- */
 const daveSounds = {
-    SAY: ["Dave/SAY1.ogg","Dave/SAY2.ogg","Dave/SAY3.ogg","Dave/SAY4.ogg","Dave/SAY5.ogg","Dave/SAY6.ogg","Dave/SAY7.ogg","Dave/SAY8.ogg","Dave/SAY9.ogg","Dave/SAY10.ogg","Dave/SAY11.ogg","Dave/SAY12.ogg"],
-    SHOUT: ["Dave/SHOUT1.ogg","Dave/SHOUT2.ogg","Dave/SHOUT3.ogg","Dave/SHOUT4.ogg","Dave/SHOUT5.ogg","Dave/SHOUT6.ogg"],
-    EXCITED: ["Dave/EXCITED1.ogg","Dave/EXCITED2.ogg","Dave/EXCITED3.ogg","Dave/EXCITED4.ogg","Dave/EXCITED5.ogg","Dave/EXCITED6.ogg"],
-    TIRED: ["Dave/TIRED1.ogg","Dave/TIRED2.ogg","Dave/TIRED3.ogg","Dave/TIRED4.ogg","Dave/TIRED5.ogg","Dave/TIRED6.ogg","Dave/TIRED7.ogg","Dave/TIRED8.ogg","Dave/TIRED9.ogg"],
-    PLAYFUL: ["Dave/PLAYFUL1.ogg","Dave/PLAYFUL2.ogg","Dave/PLAYFUL3.ogg","Dave/PLAYFUL4.ogg","Dave/PLAYFUL5.ogg","Dave/PLAYFUL6.ogg","Dave/PLAYFUL7.ogg"]
+    SAY: ["dave/say1.ogg","dave/say2.ogg","dave/say3.ogg","dave/say4.ogg","dave/say5.ogg","dave/say6.ogg","dave/say7.ogg","dave/say8.ogg","dave/say9.ogg","dave/say10.ogg","dave/say11.ogg","dave/say12.ogg"],
+    SHOUT: ["dave/shout1.ogg","dave/shout2.ogg","dave/shout3.ogg","dave/shout4.ogg","dave/shout5.ogg","dave/shout6.ogg"],
+    EXCITED: ["dave/excited1.ogg","dave/excited2.ogg","dave/excited3.ogg","dave/excited4.ogg","dave/excited5.ogg","dave/excited6.ogg"],
+    TIRED: ["dave/tired1.ogg","dave/tired2.ogg","dave/tired3.ogg","dave/tired4.ogg","dave/tired5.ogg","dave/tired6.ogg","dave/tired7.ogg","dave/tired8.ogg","dave/tired9.ogg"],
+    PLAYFUL: ["dave/playful1.ogg","dave/playful2.ogg","dave/playful3.ogg","dave/playful4.ogg","dave/playful5.ogg","dave/playful6.ogg","dave/playful7.ogg"]
 };
 
 /* ---------- DAVE VOICE VARIANTS ---------- */
 const daveSoundsVariants = {
     default: daveSounds,  // default already defined above
     old: {
-        SAY: ["Dave/old/SAY1.ogg","Dave/old/SAY2.ogg","Dave/old/SAY3.ogg","Dave/old/SAY4.ogg","Dave/old/SAY5.ogg","Dave/old/SAY6.ogg","Dave/old/SAY7.ogg","Dave/old/SAY8.ogg","Dave/old/SAY9.ogg"],
-        SHOUT: ["Dave/old/SHOUT1.ogg","Dave/old/SHOUT2.ogg"],
-        EXCITED: ["Dave/old/EXCITED1.ogg"],
+        SAY: ["dave/old/say1.ogg","dave/old/say2.ogg","dave/old/say3.ogg","dave/old/say4.ogg","dave/old/say5.ogg","dave/old/say6.ogg","dave/old/say7.ogg","dave/old/say8.ogg","dave/old/say9.ogg"],
+        SHOUT: ["dave/old/shout1.ogg","dave/old/shout2.ogg"],
+        EXCITED: ["dave/old/excited1.ogg"],
         TIRED: [],
         PLAYFUL: []
     },
     birthday: {
-        SAY: ["Dave/BIRTHDAY_SAY1.ogg"],  // Placeholder - update if birthday files exist
+        SAY: ["dave/BIRTHDAY_SAY1.ogg"],  // Placeholder - update if birthday files exist
         SHOUT: [],
         EXCITED: [],
         TIRED: [],
@@ -438,38 +438,38 @@ const daveSoundsVariants = {
 
 /* ---------- DAVE SKIN VARIANTS ---------- */
 const daveSkinVariants = {
-    default: "Dave.png",
-    n3xt: "Dave/n3xtsay.png",  // N3XT skin works like ABS (emotion-based)
-    lunar: "Dave/lunardave.png",
-    evil: "Dave/evil.png",
-    birthday: "Dave/birthday.png",
-    alternate: "Dave/altdave.png"
+    default: "dave.png",
+    n3xt: "dave/n3xtsay.png",  // N3XT skin works like ABS (emotion-based)
+    lunar: "dave/lunardave.png",
+    evil: "dave/evil.png",
+    birthday: "dave/birthday.png",
+    alternate: "dave/altdave.png"
 };
 
 /* ---------- ZOMBERT SKIN VARIANTS ---------- */
 const zombertSkinVariants = {
-    default: "Zombert.png",
-    super: "Zombert/superzombert.png"
+    default: "zombert.png",
+    super: "zombert/superzombert.png"
 };
 
 /* ---------- LUCKY & MISSINFO SKIN VARIANTS ---------- */
 const luckySkinVariants = {
-    default: "Lucky.png",
-    love: "Lucky/love.png"
+    default: "lucky.png",
+    love: "lucky/love.png"
 };
 
 const missinfoSkinVariants = {
-    default: "MissInfo.png",
-    love: "MissInfo/love.png"
+    default: "missinfo.png",
+    love: "missinfo/love.png"
 };
 
 /* ---------- PENNY SOUNDS ---------- */
 const pennySounds = {
-    SAY: ["Weenie/SAY1.ogg","Weenie/SAY2.ogg","Weenie/SAY3.ogg","Weenie/SAY4.ogg","Weenie/SAY5.ogg","Weenie/SAY7.ogg","Weenie/SAY8.ogg","Weenie/SAY9.ogg","Weenie/SAY10.ogg","Weenie/SAY11.ogg","Weenie/SAY12.ogg"],
-    SHOUT: ["Weenie/SHOUT1.ogg","Weenie/SHOUT2.ogg","Weenie/SHOUT3.ogg","Weenie/SHOUT4.ogg","Weenie/SHOUT5.ogg","Weenie/SHOUT6.ogg"],
-    EXCITED: ["Weenie/EXCITED1.ogg","Weenie/EXCITED2.ogg","Weenie/EXCITED3.ogg","Weenie/EXCITED4.ogg","Weenie/EXCITED5.ogg","Weenie/EXCITED6.ogg"],
-    TIRED: ["Weenie/TIRED1.ogg","Weenie/TIRED2.ogg","Weenie/TIRED3.ogg","Weenie/TIRED4.ogg","Weenie/TIRED5.ogg","Weenie/TIRED6.ogg","Weenie/TIRED7.ogg","Weenie/TIRED8.ogg","Weenie/TIRED9.ogg"],
-    PLAYFUL: ["Weenie/PLAYFUL1.ogg","Weenie/PLAYFUL2.ogg","Weenie/PLAYFUL3.ogg","Weenie/PLAYFUL4.ogg","Weenie/PLAYFUL5.ogg","Weenie/PLAYFUL6.ogg","Weenie/PLAYFUL7.ogg","Weenie/PLAYFUL8.ogg","Weenie/PLAYFUL9.ogg"]
+    SAY: ["weenie/say1.ogg","weenie/say2.ogg","weenie/say3.ogg","weenie/say4.ogg","weenie/say5.ogg","weenie/say7.ogg","weenie/say8.ogg","weenie/say9.ogg","weenie/say10.ogg","weenie/say11.ogg","weenie/say12.ogg"],
+    SHOUT: ["weenie/shout1.ogg","weenie/shout2.ogg","weenie/shout3.ogg","weenie/shout4.ogg","weenie/shout5.ogg","weenie/shout6.ogg"],
+    EXCITED: ["weenie/excited1.ogg","weenie/excited2.ogg","weenie/excited3.ogg","weenie/excited4.ogg","weenie/excited5.ogg","weenie/excited6.ogg"],
+    TIRED: ["weenie/tired1.ogg","weenie/tired2.ogg","weenie/tired3.ogg","weenie/tired4.ogg","weenie/tired5.ogg","weenie/tired6.ogg","weenie/tired7.ogg","weenie/tired8.ogg","weenie/tired9.ogg"],
+    PLAYFUL: ["weenie/playful1.ogg","weenie/playful2.ogg","weenie/playful3.ogg","weenie/playful4.ogg","weenie/playful5.ogg","weenie/playful6.ogg","weenie/playful7.ogg","weenie/playful8.ogg","weenie/playful9.ogg"]
 };
 
 /* ---------- SPONGEBOB SOUNDS ---------- */
@@ -483,44 +483,44 @@ const spongebobSounds = {
 
 /* ---------- CAMO SOUNDS ---------- */
 const camoSounds = {
-    SAY: ["Camo/SAY1.mp3","Camo/SAY2.mp3","Camo/SAY3.mp3","Camo/SAY4.mp3","Camo/SAY5.mp3","Camo/SAY6.mp3","Camo/SAY7.mp3"],
-    SHOUT: ["Camo/SHOUT1.mp3","Camo/SHOUT2.mp3","Camo/SHOUT3.mp3","Camo/SHOUT4.mp3","Camo/SHOUT5.mp3","Camo/SHOUT6.mp3"],
+    SAY: ["camo/say1.mp3","camo/say2.mp3","camo/say3.mp3","camo/say4.mp3","camo/say5.mp3","camo/say6.mp3","camo/say7.mp3"],
+    SHOUT: ["camo/shout1.mp3","camo/shout2.mp3","camo/shout3.mp3","camo/shout4.mp3","camo/shout5.mp3","camo/shout6.mp3"],
 };
 const zombossSounds = {
-    SAY: ["Zomboss/SAY1.ogg","Zomboss/SAY2.ogg","Zomboss/SAY3.ogg","Zomboss/SAY4.ogg","Zomboss/SAY5.ogg","Zomboss/SAY6.ogg"],
-    SHOUT: ["Zomboss/SHOUT1.ogg","Zomboss/SHOUT2.ogg","Zomboss/SHOUT3.ogg"],
-    PLAYFUL: ["Zomboss/PLAYFUL1.ogg","Zomboss/PLAYFUL2.ogg","Zomboss/PLAYFUL3.ogg"],
-    TIRED: ["Zomboss/TIRED1.ogg","Zomboss/TIRED2.ogg","Zomboss/TIRED3.ogg"],
-    EXCITED: ["Zomboss/EXCITED1.ogg","Zomboss/EXCITED2.ogg","Zomboss/EXCITED3.ogg"]
+    SAY: ["zomboss/say1.ogg","zomboss/say2.ogg","zomboss/say3.ogg","zomboss/say4.ogg","zomboss/say5.ogg","zomboss/say6.ogg"],
+    SHOUT: ["zomboss/shout1.ogg","zomboss/shout2.ogg","zomboss/shout3.ogg"],
+    PLAYFUL: ["zomboss/playful1.ogg","zomboss/playful2.ogg","zomboss/playful3.ogg"],
+    TIRED: ["zomboss/tired1.ogg","zomboss/tired2.ogg","zomboss/tired3.ogg"],
+    EXCITED: ["zomboss/excited1.ogg","zomboss/excited2.ogg","zomboss/excited3.ogg"]
 };
 const zombertSounds = {
-    SAY: ["Zombert/SAY1.mp3","Zombert/SAY2.mp3","Zombert/SAY3.mp3","Zombert/SAY4.mp3"],
-    SHOUT: ["Zombert/SHOUT2.mp3","Zombert/SHOUT3.mp3"],
-    TIRED: ["Zombert/TIRED1.mp3"],
-    EXCITED: ["Zombert/EXCITED1.mp3"]
+    SAY: ["zombert/say1.mp3","zombert/say2.mp3","zombert/say3.mp3","zombert/say4.mp3"],
+    SHOUT: ["zombert/shout2.mp3","zombert/shout3.mp3"],
+    TIRED: ["zombert/tired1.mp3"],
+    EXCITED: ["zombert/excited1.mp3"]
 };
 const luckySounds = {
-    SAY:["Lucky/SPEAK1.mp3","Lucky/SPEAK2.mp3","Lucky/SPEAK3.mp3","Lucky/SPEAK4.mp3","Lucky/SPEAK5.mp3"],
-    SHOUT:["Lucky/SHOUT1.mp3","Lucky/SHOUT2.mp3"],
-    TIRED:["Lucky/TIRED1.mp3","Lucky/TIRED2.mp3"],
-    PLAYFUL:["Lucky/PLAYFUL1.mp3","Lucky/PLAYFUL2.mp3"]
+    SAY:["lucky/speak1.mp3","lucky/speak2.mp3","lucky/speak3.mp3","lucky/speak4.mp3","lucky/speak5.mp3"],
+    SHOUT:["lucky/shout1.mp3","lucky/shout2.mp3"],
+    TIRED:["lucky/tired1.mp3","lucky/tired2.mp3"],
+    PLAYFUL:["lucky/playful1.mp3","lucky/playful2.mp3"]
 };
 const nannySounds = {
-    SAY: ["Nanny/SAY1.ogg","Nanny/SAY2.ogg","Nanny/SAY3.ogg","Nanny/SAY4.ogg","Nanny/SAY5.ogg"],
-    SHOUT: ["Nanny/SHOUT1.ogg"],
-    EXCITED: ["Nanny/EXCITED1.ogg"],
-    TIRED: ["Nanny/TIRED1.ogg"]
+    SAY: ["nanny/say1.ogg","nanny/say2.ogg","nanny/say3.ogg","nanny/say4.ogg","nanny/say5.ogg"],
+    SHOUT: ["nanny/shout1.ogg"],
+    EXCITED: ["nanny/excited1.ogg"],
+    TIRED: ["nanny/tired1.ogg"]
 };
 const huntariaSounds = {
-    SAY:["Huntaria/SAY1.ogg","Huntaria/SAY2.ogg","Huntaria/SAY3.ogg"],
+    SAY:["huntaria/say1.ogg","huntaria/say2.ogg","huntaria/say3.ogg"],
 }
 const ABS = {
-    SHOUT:["AntiBullySquad/SHOUT1.ogg","AntiBullySquad/SHOUT2.ogg","AntiBullySquad/SHOUT3.ogg","AntiBullySquad/SHOUT4.ogg"],
-    TIRED:["AntiBullySquad/TIRED1.ogg","AntiBullySquad/TIRED2.ogg"],
-    PLAYFUL:["AntiBullySquad/PLAYFUL1.ogg","AntiBullySquad/PLAYFUL2.ogg","AntiBullySquad/PLAYFUL3.ogg"]
+    SHOUT:["antibullysquad/shout1.ogg","antibullysquad/shout2.ogg","antibullysquad/shout3.ogg","antibullysquad/shout4.ogg"],
+    TIRED:["antibullysquad/tired1.ogg","antibullysquad/tired2.ogg"],
+    PLAYFUL:["antibullysquad/playful1.ogg","antibullysquad/playful2.ogg","antibullysquad/playful3.ogg"]
 };
 const missinfo = {
-    SAY:["MissInfo/SAY1.ogg","MissInfo/SAY2.ogg","MissInfo/SAY3.ogg","MissInfo/SAY4.ogg",]
+    SAY:["missinfo/say1.ogg","missinfo/say2.ogg","missinfo/say3.ogg","missinfo/say4.ogg",]
 };
 
 /* ---------- CHIMANTA (NO VOICE) ---------- */
@@ -533,21 +533,21 @@ const chimantaSounds = {
 };
 /* ---------- NPC INTRO SOUNDS ---------- */
 const npcIntroSounds = {
-    dave: "Dave/INTRO.ogg",
-    penny: "Weenie/INTRO.ogg",
-    camo: "Camo/INTRO.ogg",
-    zomboss: "Zomboss/INTRO.ogg",
-    zombert: "Zombert/INTRO.ogg",
-    lucky: "Lucky/INTRO.ogg",
-    nanny: "Nanny/INTRO.ogg",
-    missinfo: "MissInfo/INTRO.ogg",
-    huntaria: "Huntaria/INTRO.ogg",
-    greedy: "Greedy/INTRO.ogg",
-    antibullysquad: "AntiBullySquad/INTRO.ogg",
+    dave: null,
+    penny: null,
+    camo: "camo/intro.ogg",
+    zomboss: "zomboss/intro.ogg",
+    zombert: "zombert/intro.ogg",
+    lucky: "lucky/intro.ogg",
+    nanny: "nanny/intro.ogg",
+    missinfo: "missinfo/intro.ogg",
+    huntaria: "huntaria/intro.ogg",
+    greedy: "greedy/intro.ogg",
+    antibullysquad: "antibullysquad/intro.ogg",
     spongebob: "Spongebob/INTRO.ogg",
-    plankton: "plankton/INTRO.ogg",
-    douglas: "douglas/INTRO.ogg",
-    tugboat: "tugboat/INTRO.ogg"
+    plankton: "plankton/intro.ogg",
+    douglas: "douglas/intro.ogg",
+    tugboat: "tugboat/intro.ogg"
 };
 
 // Map Penny variant: soldier uses camo intro
@@ -564,20 +564,20 @@ function updateIntroSounds() {
 
 /* ---------- NPC SPAWN/DESPAWN SOUNDS ---------- */
 const npcSpawnSounds = {
-    dave: "Dave/SPAWN.ogg",
-    penny: "Weenie/SPAWN.ogg",
-    camo: "Camo/SPAWN.ogg",
-    zomboss: "Zomboss/SPAWN.ogg",
-    zombert: "Zombert/SPAWN.ogg",
-    lucky: "Lucky/SPAWN.ogg",
-    nanny: "Nanny/SPAWN.ogg",
-    missinfo: "MissInfo/SPAWN.ogg",
-    huntaria: "Huntaria/SPAWN.ogg",
-    greedy: "Greedy/SPAWN.ogg",
-    antibullysquad: "AntiBullySquad/SPAWN.ogg",
-    plankton: "plankton/SPAWN.ogg",
-    douglas: "douglas/SPAWN.ogg",
-    tugboat: "tugboat/SPAWN.ogg"
+    dave: "dave/SPAWN.ogg",
+    penny: "weenie/SPAWN.ogg",
+    camo: null,
+    zomboss: "zomboss/spawn.ogg",
+    zombert: null,
+    lucky: null,
+    nanny: null,
+    missinfo: null,
+    huntaria: "huntaria/spawn.ogg",
+    greedy: "greedy/spawn.ogg",
+    antibullysquad: "antibullysquad/spawn.ogg",
+    plankton: null,
+    douglas: null,
+    tugboat: null
 };
 
 // soldier uses camo spawn/despawn; surfer silent
@@ -587,26 +587,26 @@ npcSpawnSounds['soldier'] = npcSpawnSounds['camo'];
 npcSpawnSounds['chimanta'] = npcSpawnSounds['dave'];
 
 const npcDespawnSounds = {
-    dave: "Dave/DESPAWN.ogg",
-    penny: "Weenie/DESPAWN.ogg",
-    camo: "Camo/DESPAWN.ogg",
-    zomboss: "Zomboss/DESPAWN.ogg",
-    zombert: "Zombert/DESPAWN.ogg",
-    lucky: "Lucky/DESPAWN.ogg",
-    nanny: "Nanny/DESPAWN.ogg",
-    missinfo: "MissInfo/DESPAWN.ogg",
-    huntaria: "Huntaria/DESPAWN.ogg",
-    greedy: "Greedy/DESPAWN.ogg",
-    antibullysquad: "AntiBullySquad/DESPAWN.ogg",
-    plankton: "plankton/DESPAWN.ogg",
-    douglas: "douglas/DESPAWN.ogg",
-    tugboat: "tugboat/DESPAWN.ogg"
+    dave: null,
+    penny: null,
+    camo: null,
+    zomboss: null,
+    zombert: null,
+    lucky: null,
+    nanny: null,
+    missinfo: null,
+    huntaria: null,
+    greedy: null,
+    antibullysquad: null,
+    plankton: null,
+    douglas: null,
+    tugboat: null
 };
 // soldier uses camo despawn
 npcDespawnSounds['soldier'] = npcDespawnSounds['camo'];
 const greedySounds = {
-    SAY: ["Greedy/SAY1.ogg","Greedy/SAY2.ogg","Greedy/SAY3.ogg","Greedy/SAY4.ogg","Greedy/SAY5.ogg","Greedy/SAY6.ogg","Greedy/SAY7.ogg","Greedy/SAY8.ogg"],
-    SHOUT: ["Greedy/SHOUT1.ogg","Greedy/SHOUT2.ogg","Greedy/SHOUT3.ogg","Greedy/SHOUT4.ogg","Greedy/SHOUT5.ogg","Greedy/SHOUT6.ogg"]
+    SAY: ["greedy/say1.ogg","greedy/say2.ogg","greedy/say3.ogg","greedy/say4.ogg","greedy/say5.ogg","greedy/say6.ogg","greedy/say7.ogg","greedy/say8.ogg"],
+    SHOUT: ["greedy/shout1.ogg","greedy/shout2.ogg","greedy/shout3.ogg","greedy/shout4.ogg","greedy/shout5.ogg","greedy/shout6.ogg"]
 };
 
 /* ---------- PLANKTON SOUNDS ---------- */
@@ -651,20 +651,20 @@ function updateDespawnSounds(){
 /* ---------- NPC BACKGROUND MUSIC ---------- */
 const npcBackgroundMusic = {
     dave: null,
-    penny: "Weenie/BACKGROUND.ogg",
-    camo: "Camo/BACKGROUND.ogg",
-    zomboss: "Zomboss/BACKGROUND.ogg",
-    zombert: "Zombert/BACKGROUND.ogg",
-    lucky: "Lucky/BACKGROUND.ogg",
-    nanny: "Nanny/BACKGROUND.ogg",
-    missinfo: "MissInfo/BACKGROUND.ogg",
-    huntaria: "Huntaria/BACKGROUND.ogg",
-    greedy: "Greedy/BACKGROUND.ogg",
-    antibullysquad: "AntiBullySquad/BACKGROUND.ogg",
+    penny: "weenie/BACKGROUND.ogg",
+    camo: "camo/background.ogg",
+    zomboss: "zomboss/background.ogg",
+    zombert: "zombert/background.ogg",
+    lucky: "lucky/background.ogg",
+    nanny: "nanny/background.ogg",
+    missinfo: "missinfo/background.ogg",
+    huntaria: "huntaria/background.ogg",
+    greedy: "greedy/background.ogg",
+    antibullysquad: "antibullysquad/background.ogg",
     spongebob: "Spongebob/BACKGROUND.mp3",
-    plankton: "plankton/BACKGROUND.ogg",
-    douglas: "douglas/BACKGROUND.ogg",
-    tugboat: "tugboat/BACKGROUND.ogg"
+    plankton: "plankton/background.ogg",
+    douglas: "douglas/background.ogg",
+    tugboat: "tugboat/background.ogg"
 };
 
 // soldier uses camo background music; surfer none
@@ -674,7 +674,7 @@ npcBackgroundMusic['soldier'] = npcBackgroundMusic['camo'];
 npcBackgroundMusic['chimanta'] = null;
 
 // Site-wide default background music (fallback when no NPC music is active)
-let defaultBackgroundMusic = "BACKGROUND.mp3"; // place a file at this path or change to your preferred background file
+let defaultBackgroundMusic = "background.mp3"; // place a file at this path or change to your preferred background file
 // Add custom NPC background music
 function updateBackgroundMusic() {
     Object.keys(customNPCs).forEach(npcName => {
@@ -792,7 +792,7 @@ async function setNpcImageForEmotion(npcName, emotion, skinVariantOverride){
             // Disable transition temporarily for instant swap
             el.style.transition = 'none';
             // Set image path based on emotion
-            el.src = `AntiBullySquad/${up}.png`;
+            el.src = `antibullysquad/${up.toLowerCase()}.png`;
             // Re-enable transition after swap
             setTimeout(()=>{ el.style.transition = 'opacity 0.35s ease, transform 0.35s ease'; }, 10);
             return;
@@ -812,7 +812,7 @@ async function setNpcImageForEmotion(npcName, emotion, skinVariantOverride){
                 el.style.transition = 'none';
                 // N3XT uses emotion-based sprites: use n3xtsay as idle, n3xtshout for SHOUT, n3xttired for TIRED
                 const imageName = up === 'SHOUT' ? 'n3xtshout' : (up === 'TIRED' ? 'n3xttired' : 'n3xtsay');
-                el.src = `Dave/${imageName}.png`;
+                el.src = `dave/${imageName}.png`;
                 setTimeout(()=>{ el.style.transition = 'opacity 0.35s ease, transform 0.35s ease'; }, 10);
             } else {
                 // Add class for size adjustments (birthday, etc)
@@ -820,7 +820,7 @@ async function setNpcImageForEmotion(npcName, emotion, skinVariantOverride){
                     el.classList.add('birthday-skin');
                 }
                 // Regular Dave skins use single image
-                el.src = daveSkinVariants[skinVariant] || 'Dave.png';
+                el.src = daveSkinVariants[skinVariant] || 'dave.png';
             }
             return;
         }
@@ -829,21 +829,21 @@ async function setNpcImageForEmotion(npcName, emotion, skinVariantOverride){
         if(npcName === 'zombert'){
             // Use skinVariantOverride if provided (from line object), otherwise use selector value
             const skinVariant = skinVariantOverride || document.getElementById('skinVariant')?.value || 'default';
-            el.src = zombertSkinVariants[skinVariant] || 'Zombert.png';
+            el.src = zombertSkinVariants[skinVariant] || 'zombert.png';
             return;
         }
 
         // Handle Lucky skin variants
         if(npcName === 'lucky'){
             const skinVariant = skinVariantOverride || document.getElementById('skinVariant')?.value || 'default';
-            el.src = luckySkinVariants[skinVariant] || 'Lucky.png';
+            el.src = luckySkinVariants[skinVariant] || 'lucky.png';
             return;
         }
 
         // Handle MissInfo skin variants
         if(npcName === 'missinfo'){
             const skinVariant = skinVariantOverride || document.getElementById('skinVariant')?.value || 'default';
-            el.src = missinfoSkinVariants[skinVariant] || 'MissInfo.png';
+            el.src = missinfoSkinVariants[skinVariant] || 'missinfo.png';
             return;
         }
         
@@ -1382,7 +1382,7 @@ function displayVoiceFiles(){
     if(list.length === 0){
         voiceFilesList.innerHTML = "<p style='color: #888;'>No voice files added</p>";
     } else {
-        voiceFilesList.innerHTML = "<p style='color: #4CAF50;'>✓ " + list.length + " voice files ready:</p>" +
+        voiceFilesList.innerHTML = "<p style='color: #4CAF50;'>OK: " + list.length + " voice files ready:</p>" +
             "<ul style='text-align: left; margin: 5px 0; padding-left: 20px;'>" +
             list.map(name => "<li>" + name + "</li>").join("") +
             "</ul>";
@@ -1822,7 +1822,7 @@ function stopIntroAudio(){
 
 function playNpcIntroAndBackground(npc){
     // Play intro and start background when intro ends
-    // No callback blocking — spawn happens independently
+    // No callback blocking - spawn happens independently
     if(!isPlaying) return; // only play during play mode
     if(!enableMusic) return;
 
@@ -2209,7 +2209,7 @@ document.getElementById("addLeaveBtn").onclick=()=>{
 
 /* ---------- SFX FOLDER MANAGEMENT ---------- */
 // SFX options are now hardcoded in index.html
-// (Auto-loader disabled — uncomment below if you want dynamic loading from sfx/ folder)
+// (Auto-loader disabled - uncomment below if you want dynamic loading from sfx/ folder)
 /*
 async function loadSfxFiles(){
     try{
@@ -2555,7 +2555,7 @@ function showNext(){
         // set image per emotion if custom images exist
         setNpcImageForEmotion(line.speaker, line.emotion, line.skinVariant);
 
-        // Play voice — Dave variants reuse Dave sounds; Penny variants use their mapped sounds (soldier -> camo, surfer -> silent)
+        // Play voice - Dave variants reuse Dave sounds; Penny variants use their mapped sounds (soldier -> camo, surfer -> silent)
         playNPCSound(line.speaker, line.emotion, line.text, line.voiceVariant);
         
         // Play SFX if attached to this line

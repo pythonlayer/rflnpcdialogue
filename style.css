@@ -137,52 +137,96 @@ html { touch-action: manipulation; }
 
 
 /* ---------- EDITOR ---------- */
-#editor { width: 900px; margin: 15px auto; padding: 10px; background: #222; }
-#editor label { display: block; margin-top: 10px; font-weight: bold; }
+#editor {
+    width: min(940px, 94vw);
+    margin: 12px auto 18px;
+    padding: 14px;
+    background: #202020;
+    border: 1px solid #3a3a3a;
+    border-radius: 10px;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
+}
+#editor h2 { margin: 0 0 12px; font-size: 1.4rem; letter-spacing: 0.01em; }
+#editor label { display: block; margin-top: 8px; font-weight: bold; }
 #editor select, #editor textarea, #editor button, #editor input[type="text"], #editor input[type="file"], #editor input[type="color"] {
-    width: 100%; margin-top: 5px; padding: 6px; background: #333; color: white; border: 1px solid #444; font-size: 14px; box-sizing: border-box;
+    width: 100%; margin-top: 5px; padding: 7px; background: #333; color: white; border: 1px solid #444; border-radius: 6px; font-size: 14px; box-sizing: border-box;
     -webkit-appearance: none; /* Remove iOS default styling */
     appearance: none;
 }
 #editor input[type="color"] { padding: 3px; cursor: pointer; }
-#editor button { cursor: pointer; transition: background 0.2s; }
+#editor button { cursor: pointer; transition: background 0.2s, border-color 0.2s; }
 #editor button:active { background: #555; transform: scale(0.98); }
+#text { min-height: 86px; resize: vertical; }
 
 #npcCreatorSection h3 { color: #4CAF50; }
 #voiceLinesContainer { box-sizing: border-box; transition: all 0.2s; }
 #voiceFilesList { color: #888; font-size: 12px; }
 #voiceFilesList ul { color: #ccc; }
 
-/* Compact button layout for dialogue controls */
-#editor > button {
-    display: inline-block;
-    width: calc(25% - 4px);
-    margin: 5px 2px 5px 0;
-    padding: 8px 4px;
-    font-size: 13px;
-    white-space: nowrap;
+.editor-collapse {
+    border: 1px solid #3d3d3d;
+    border-radius: 7px;
+    background: #1c1c1c;
+    margin-bottom: 12px;
+    overflow: hidden;
 }
 
-#editor > button:nth-child(4n+5) {
-    margin-left: 0;
+.editor-collapse > summary {
+    cursor: pointer;
+    padding: 10px 12px;
+    font-weight: 600;
+    color: #ddd;
+    list-style: none;
+    user-select: none;
+    background: #272727;
+}
+
+.editor-collapse > summary::-webkit-details-marker {
+    display: none;
+}
+
+.editor-collapse > summary::after {
+    content: "+";
+    float: right;
+    color: #a6a6a6;
+    font-weight: 700;
+}
+
+.editor-collapse[open] > summary::after {
+    content: "-";
+}
+
+#actionButtons {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+    margin-top: 12px;
+}
+
+#actionButtons button {
+    margin: 0;
+    padding: 10px 8px;
+    font-size: 13px;
+    white-space: nowrap;
+    border-color: #545454;
+}
+
+#actionButtons #playBtn.primary {
+    background: #2a7f3f;
+    border-color: #3a9a53;
+    font-weight: 700;
+}
+
+#actionButtons #playBtn.primary:hover {
+    background: #349a4e;
 }
 
 @media (max-width: 768px) {
-    #editor > button {
-        width: calc(50% - 3px);
-        font-size: 12px;
-        padding: 6px 3px;
-        margin: 4px 1px 4px 0;
-    }
+    #actionButtons { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
-@media (max-width: 600px) {
-    #editor > button {
-        width: 100%;
-        font-size: 12px;
-        padding: 8px;
-        margin: 4px 0;
-    }
+@media (max-width: 520px) {
+    #actionButtons { grid-template-columns: 1fr; }
 }
 
 /* NPC Management Section */
@@ -227,7 +271,7 @@ html { touch-action: manipulation; }
 }
 
 @media (max-width: 768px) {
-    #editor { width: 95%; padding: 8px; }
+    #editor { width: 95%; padding: 10px; }
     #editor select, #editor textarea, #editor button, #editor input[type="text"], #editor input[type="file"], #editor input[type="color"] { font-size: 16px; padding: 8px; }
 }
 
@@ -235,7 +279,7 @@ html { touch-action: manipulation; }
 
 /* ---------- GAME ---------- */
 #game { position: fixed; inset: 0; display: none; background: black; }
-#lawn { position: absolute; inset: 0; background: url("ModernStage.png") center / cover no-repeat; background-size: cover; background-position: center; background-repeat: no-repeat; image-rendering: optimizeQuality; }
+#lawn { position: absolute; inset: 0; background: url("modernstage.png") center / cover no-repeat; background-size: cover; background-position: center; background-repeat: no-repeat; image-rendering: optimizeQuality; }
 
 /* ---------- NPCs ---------- */
 .npc { position: absolute; pointer-events: auto; display: none; cursor: pointer; width: auto; height: auto; max-height: 30vh; max-width: 40vw; object-fit: contain; user-select: none; -webkit-user-select: none; }
@@ -383,7 +427,7 @@ html { touch-action: manipulation; }
 
 /* High-DPI: try to use a 2x background if available to avoid blur */
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-    #lawn { background-image: url("ModernStage.png"); background-size: cover; }
+    #lawn { background-image: url("modernstage.png"); background-size: cover; }
 }
 
 /* Ultra-mobile (small phones - max 480px width) */
@@ -617,7 +661,7 @@ html { touch-action: manipulation; }
 
 /* ===== SPEECH BUBBLE RESPONSIVE SIZING ===== */
 
-/* Ultra-mobile (≤480px) */
+/* Ultra-mobile (<=480px) */
 @media (max-width: 480px) {
     .speechBubble {
         --bubble-width: 29%;
