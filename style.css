@@ -1,18 +1,18 @@
 /* ---------- CUSTOM FONTS ---------- */
 @font-face { font-family: "Annabel"; src: url("fonts/annabel 1.ttf") format("truetype"); }
-@font-face { font-family: "AshleyScript"; src: url("fonts/AshleyScriptMTStdRg.TTF") format("truetype"); }
-@font-face { font-family: "Blackadder"; src: url("fonts/BlackadderITCStd.otf") format("opentype"); }
-@font-face { font-family: "BrianneHand"; src: url("fonts/Brianne'shand.ttf") format("truetype"); }
-@font-face { font-family: "Century751BTBold"; src: url("fonts/Century 751 Bold.otf") format("opentype"); }
+@font-face { font-family: "AshleyScript"; src: url("fonts/ashleyscriptmtstdrg.ttf") format("truetype"); }
+@font-face { font-family: "Blackadder"; src: url("fonts/blackadderitcstd.otf") format("opentype"); }
+@font-face { font-family: "BrianneHand"; src: url("fonts/brianneshand.ttf") format("truetype"); }
+@font-face { font-family: "Century751BTBold"; src: url("fonts/century 751 bold.otf") format("opentype"); }
 @font-face { font-family: "Cromagnum"; src: url("fonts/cro.ttf") format("truetype"); }
 @font-face { font-family: "Didot"; src: url("fonts/didot.otf") format("opentype"); }
-@font-face { font-family: "HouseOfTerror"; src: url("fonts/HouseofTerror Regular.otf") format("opentype"); }
-@font-face { font-family: "InformalRoman"; src: url("fonts/InformalRoman-Regular.ttf") format("truetype"); }
+@font-face { font-family: "HouseOfTerror"; src: url("fonts/houseofterror regular.otf") format("opentype"); }
+@font-face { font-family: "InformalRoman"; src: url("fonts/informalroman-regular.ttf") format("truetype"); }
 @font-face { font-family: "KrustyKrab"; src: url("fonts/KrustyKrab.ttf") format("truetype"); }
-@font-face { font-family: "NewsFlashBB"; src: url("fonts/NewsFlashBB.ttf") format("truetype"); }
-@font-face { font-family: "ROGLyonsType"; src: url("fonts/ROGLyonsType-Regular.ttf") format("truetype"); }
-@font-face { font-family: "RockwellCondensed"; src: url("fonts/Rockwell Condensed Bold.otf") format("opentype"); }
-@font-face { font-family: "UnmaskedBB"; src: url("fonts/UnmaskedBB.ttf") format("truetype"); }
+@font-face { font-family: "NewsFlashBB"; src: url("fonts/newsflashbb.ttf") format("truetype"); }
+@font-face { font-family: "ROGLyonsType"; src: url("fonts/roglyonstype-regular.ttf") format("truetype"); }
+@font-face { font-family: "RockwellCondensed"; src: url("fonts/rockwell condensed bold.otf") format("opentype"); }
+@font-face { font-family: "UnmaskedBB"; src: url("fonts/unmaskedbb.ttf") format("truetype"); }
 
 body { margin: 0; font-family: Arial, sans-serif; font-size: large;background: #111; color: white; touch-action: manipulation; }
 html { touch-action: manipulation; }
