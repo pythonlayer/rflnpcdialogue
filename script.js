@@ -288,9 +288,22 @@ let customNpcFonts = JSON.parse(localStorage.getItem("customNpcFonts")) || {};
 let customNpcColors = JSON.parse(localStorage.getItem("customNpcColors")) || {};
 let customSfxMap = JSON.parse(localStorage.getItem("customSfxMap")) || {};
 
-// Merge custom fonts with preset ones
+function normalizeFontName(fontName){
+    if(!fontName) return fontName;
+    const raw = String(fontName).trim();
+    if(!raw) return raw;
+    const normalizedKey = raw.toLowerCase().replace(/['\s_-]+/g, '');
+    const aliases = {
+        brianhand: "BrianneHand",
+        briannehand: "BrianneHand",
+        brianneshand: "BrianneHand"
+    };
+    return aliases[normalizedKey] || raw;
+}
+
+// Merge custom fonts with preset ones (with alias normalization for legacy saves)
 function getNpcFont(npc) {
-    return customNpcFonts[npc] || npcFonts[npc] || "Arial, sans-serif";
+    return normalizeFontName(customNpcFonts[npc]) || normalizeFontName(npcFonts[npc]) || "Arial, sans-serif";
 }
 
 /* ========== CONTENT FILTER / CENSOR SYSTEM ========== */
