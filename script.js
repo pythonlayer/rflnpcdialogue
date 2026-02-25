@@ -296,7 +296,10 @@ function normalizeFontName(fontName){
     const aliases = {
         brianhand: "BrianneHand",
         briannehand: "BrianneHand",
-        brianneshand: "BrianneHand"
+        brianneshand: "BrianneHand",
+        rockwellcondensed: "RockwellCondensed",
+        century751bold: "Century751BTBold",
+        century751btbold: "Century751BTBold"
     };
     return aliases[normalizedKey] || raw;
 }
