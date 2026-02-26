@@ -251,8 +251,13 @@ npcs.chimanta = document.getElementById("chimanta");
 /* ---------- NPC ANIMATION BEHAVIOR ---------- */
 // NPCs that reset to idle when THEIR OWN voice ends (voice-driven reset)
 const voiceDrivenNpcs = new Set(['dave', 'spongebob', 'tugboat']);
-// NPCs that reset to idle when ANOTHER NPC starts talking (abs-type reset)
+// Top/ABS-style NPCs that should return to SAY after their own voice finishes
 const absTypeNpcs = new Set(['antibullysquad', 'plankton', 'douglas']);
+
+function shouldResetNpcToIdleOnVoiceEnd(npcName){
+    if(!npcName) return false;
+    return voiceDrivenNpcs.has(npcName) || absTypeNpcs.has(npcName);
+}
 
 // Front NPC groups
 const DAVE_VARIANTS = ['dave'];
@@ -2361,17 +2366,24 @@ async function playNPCSound(npc, emotion, text, voiceVariantOverride){
 
     // Stop previous voice audio if it's still playing
     if(lastVoiceAudio){
-        lastVoiceAudio.pause();
-        lastVoiceAudio.currentTime = 0;
+        const previousNpc = lastVoiceAudio._npcName;
+        try{
+            lastVoiceAudio.pause();
+            lastVoiceAudio.currentTime = 0;
+        }catch(e){}
+        if(shouldResetNpcToIdleOnVoiceEnd(previousNpc)){
+            setNpcImageForEmotion(previousNpc, 'SAY');
+        }
     }
 
     // Play new audio
     const audio = new Audio(clip);
     audio.volume = 0.8;
+    audio._npcName = npc;
     lastVoiceAudio = audio; // Track this audio so next one can stop it
     
-    // For voice-driven NPCs (Dave, SpongeBob), reset to idle when voice ends
-    if(voiceDrivenNpcs.has(npc)){
+    // Reset to idle when this NPC's voice line ends
+    if(shouldResetNpcToIdleOnVoiceEnd(npc)){
         audio.onended = ()=>{
             setNpcImageForEmotion(npc, 'SAY');
         };
@@ -2406,6 +2418,17 @@ scriptJsonEl.addEventListener("change", updateScriptFromJson);
 scriptJsonEl.addEventListener("blur", updateScriptFromJson);
 
 /* ---------- ADD EVENT BUTTONS ---------- */
+function hasPendingEnterInScript(npcName){
+    if(!npcName) return false;
+    let active = false;
+    for(const line of script){
+        if(!line || line.speaker !== npcName) continue;
+        if(line.type === 'enter') active = true;
+        if(line.type === 'leave') active = false;
+    }
+    return active;
+}
+
 document.getElementById("addLineBtn").onclick=()=>{
     const speaker=speakerSel.value;
     const emotion=emotionSel.value;
@@ -2437,6 +2460,10 @@ document.getElementById("addLineBtn").onclick=()=>{
 
 document.getElementById("addEnterBtn").onclick=()=>{
     const speaker=speakerSel.value;
+    if(hasPendingEnterInScript(speaker)){
+        console.log('[SCRIPT] Ignoring duplicate ENTER for already-active NPC:', speaker);
+        return;
+    }
     
     const enterObj = {type:"enter",speaker};
     
@@ -2632,19 +2659,25 @@ function showNext(){
     // ENTER
     if(line.type==="enter"){
         const frontSpeaker = isFrontNpc(line.speaker);
-        // For top/back NPCs, add to activeTopNPCs so they persist until a leave
-        if(!activeTopNPCs.includes(line.speaker) && !frontSpeaker) activeTopNPCs.push(line.speaker);
-        // For front NPCs (Dave/Penny variants), track them in activeFrontNPCs so they persist until leave
-        if(frontSpeaker && !activeFrontNPCs.includes(line.speaker)){
-            activeFrontNPCs.push(line.speaker);
-        }
-        if(activeTopNPCs.includes(line.speaker)) layoutTopNPCs();
-        if(frontSpeaker){
-            // fade in front NPCs (show the specific variant)
-            fadeInElement(npcs[line.speaker]);
-        } else {
-            // for top NPCs, layoutTopNPCs handles their positioning and fade
-            layoutTopNPCs();
+        const alreadyActive = frontSpeaker
+            ? activeFrontNPCs.includes(line.speaker)
+            : activeTopNPCs.includes(line.speaker);
+
+        if(!alreadyActive){
+            // For top/back NPCs, add to activeTopNPCs so they persist until a leave
+            if(!frontSpeaker) activeTopNPCs.push(line.speaker);
+            // For front NPCs (Dave/Penny variants), track them in activeFrontNPCs so they persist until leave
+            if(frontSpeaker){
+                activeFrontNPCs.push(line.speaker);
+            }
+            if(activeTopNPCs.includes(line.speaker)) layoutTopNPCs();
+            if(frontSpeaker){
+                // fade in front NPCs (show the specific variant)
+                fadeInElement(npcs[line.speaker]);
+            } else {
+                // for top NPCs, layoutTopNPCs handles their positioning and fade
+                layoutTopNPCs();
+            }
         }
 
         // Apply voice and skin variants if present in the script
@@ -2664,42 +2697,44 @@ function showNext(){
             }catch(e){ /* non-fatal */ }
         }
 
-        // Play intro and spawn at the same time; block skipping for 2 seconds
-        // If the next queued action is another NPC ENTER, skip starting this NPC's music
-        // (we still play spawn SFX). This avoids overlapping per-NPC background when multiple NPCs enter together.
-        try{
-            const nextLine = script[index]; // index already points to the next action
-            if(!(nextLine && nextLine.type === 'enter')){
-                // Only start intro/bg when the next action is not an immediate enter
-                playNpcIntroAndBackground(line.speaker);
-            } else {
-                // Skip starting music for this NPC because another NPC will enter immediately
-                console.log('[BG MUSIC] Skipping music for', line.speaker, 'because next action is another enter');
+        if(!alreadyActive){
+            // Play intro and spawn at the same time; block skipping for 2 seconds
+            // If the next queued action is another NPC ENTER, skip starting this NPC's music
+            // (we still play spawn SFX). This avoids overlapping per-NPC background when multiple NPCs enter together.
+            try{
+                const nextLine = script[index]; // index already points to the next action
+                if(!(nextLine && nextLine.type === 'enter')){
+                    // Only start intro/bg when the next action is not an immediate enter
+                    playNpcIntroAndBackground(line.speaker);
+                } else {
+                    // Skip starting music for this NPC because another NPC will enter immediately
+                    console.log('[BG MUSIC] Skipping music for', line.speaker, 'because next action is another enter');
+                }
+            }catch(e){ playNpcIntroAndBackground(line.speaker); }
+            
+            // Play SPAWN sound on enter (all NPCs) - only if in play mode
+            if(isPlaying){
+                const spawnSrc = (customNPCs[line.speaker] && customNPCs[line.speaker].spawnSound) || npcSpawnSounds[line.speaker];
+                if(spawnSrc && enableSfx){
+                    let spawnEl = document.getElementById('spawnAudio');
+                    if(!spawnEl){ spawnEl = document.createElement('audio'); spawnEl.id = 'spawnAudio'; spawnEl.preload = 'auto'; document.body.appendChild(spawnEl); }
+                    spawnEl.src = spawnSrc;
+                    spawnEl.currentTime = 0;
+                    spawnEl.onloadeddata = ()=>{
+                        spawnEl.play().catch(e=>console.log('Spawn play error:', e));
+                    };
+                    spawnEl.onerror = ()=>{
+                        console.log('Spawn sound load error');
+                    };
+                }
             }
-        }catch(e){ playNpcIntroAndBackground(line.speaker); }
-        
-        // Play SPAWN sound on enter (all NPCs) - only if in play mode
-        if(isPlaying){
-            const spawnSrc = (customNPCs[line.speaker] && customNPCs[line.speaker].spawnSound) || npcSpawnSounds[line.speaker];
-            if(spawnSrc && enableSfx){
-                let spawnEl = document.getElementById('spawnAudio');
-                if(!spawnEl){ spawnEl = document.createElement('audio'); spawnEl.id = 'spawnAudio'; spawnEl.preload = 'auto'; document.body.appendChild(spawnEl); }
-                spawnEl.src = spawnSrc;
-                spawnEl.currentTime = 0;
-                spawnEl.onloadeddata = ()=>{
-                    spawnEl.play().catch(e=>console.log('Spawn play error:', e));
-                };
-                spawnEl.onerror = ()=>{
-                    console.log('Spawn sound load error');
-                };
-            }
+            
+            // Block skipping for 2 seconds
+            skipBlocked = true;
+            if(skipBlockTimer) clearTimeout(skipBlockTimer);
+            skipBlockTimer = setTimeout(()=>{ skipBlocked = false; skipBlockTimer = null; }, 2000);
         }
-        
-        // Block skipping for 2 seconds
-        skipBlocked = true;
-        if(skipBlockTimer) clearTimeout(skipBlockTimer);
-        skipBlockTimer = setTimeout(()=>{ skipBlocked = false; skipBlockTimer = null; }, 2000);
-        
+
         showNext();
         return;
     }
@@ -2853,17 +2888,6 @@ function showNext(){
         
         // Dim other back NPCs while this one speaks
         dimBackNpcs(line.speaker);
-        
-        // If another NPC is speaking, reset abs-type NPCs to idle (SAY.png) immediately
-        if(line.speaker !== "antibullysquad" && activeTopNPCs.includes("antibullysquad")){
-            setNpcImageForEmotion("antibullysquad", "SAY");
-        }
-        
-        // Stop voice audio for voice-driven NPCs in case they were interrupted by another speaker
-        if(voiceDrivenNpcs.has(line.speaker) && lastVoiceAudio){
-            lastVoiceAudio.pause();
-            lastVoiceAudio.currentTime = 0;
-        }
     }
 
     // keep top NPC visible for a short time if it's a single-line entrance
@@ -2872,10 +2896,6 @@ function showNext(){
             activeTopNPCs=activeTopNPCs.filter(n=>n!==line.speaker);
             if(npcs[line.speaker]) fadeOutElement(npcs[line.speaker]);
             layoutTopNPCs();
-        }
-        // If speaker is abs-type NPC, reset to SAY.png
-        if(absTypeNpcs.has(line.speaker)){
-            setNpcImageForEmotion(line.speaker, "SAY");
         }
     },2500);
 }
