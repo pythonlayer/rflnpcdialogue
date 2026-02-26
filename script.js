@@ -704,7 +704,7 @@ function updateBackgroundMusic() {
 const commonSfxFolder = "sfx/"; // play sfx as sfx/{name}.ogg
 
 async function playCommonSfx(name, volume = 1.0){
-    if(!enableSfx) return null;
+    if(!isPlaying || !enableSfx) return null;
     if(!name) return null;
 
     try{
@@ -2373,6 +2373,7 @@ function exitPlayMode(){
 }
 
 function showNext(){
+    if(!isPlaying) return;
     if(index>=script.length){
         exitPlayMode();
         return;
@@ -2649,7 +2650,7 @@ function getNextDialogLine(){
 
 /* ---------- INPUT ---------- */
 function handleGameInteraction(){
-    if(skipBlocked) return; // block interactions during spawn/leave 2-sec window
+    if(!isPlaying || skipBlocked) return; // block interactions during spawn/leave 2-sec window
     // Show next line and let showNext() handle playing NPC audio to avoid duplicates
     showNext();
 }
@@ -2661,11 +2662,14 @@ game.addEventListener('touchstart', (e)=>{
 }, {passive: false});
 document.addEventListener("keydown",e=>{
     if(e.code==="Space") {
-        if(skipBlocked) return; // block skipping during spawn/leave 2-sec window
+        if(!isPlaying || skipBlocked) return; // block skipping during spawn/leave 2-sec window
+        e.preventDefault();
         // Let showNext() handle audio playback to prevent double-playing
         showNext();
     }
     if(e.code==="Escape"){ 
+        if(!isPlaying) return;
+        e.preventDefault();
         exitPlayMode();
     }
 });
