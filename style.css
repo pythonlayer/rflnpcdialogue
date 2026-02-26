@@ -331,6 +331,21 @@ html { touch-action: manipulation; }
     background: #a33;
 }
 
+.custom-npc-item .edit-btn {
+    background: #3f6f9f;
+    color: white;
+    border: none;
+    border-radius: 2px;
+    padding: 2px 6px;
+    cursor: pointer;
+    font-size: 11px;
+    transition: background 0.2s;
+}
+
+.custom-npc-item .edit-btn:hover {
+    background: #31587d;
+}
+
 @media (max-width: 768px) {
     #editor { width: 95%; padding: 10px; }
     #editor select, #editor textarea, #editor button, #editor input[type="text"], #editor input[type="file"], #editor input[type="color"] { font-size: 16px; padding: 8px; }

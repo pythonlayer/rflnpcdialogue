@@ -1036,10 +1036,16 @@ const customNpcImageInput = document.getElementById("customNpcImage");
 const customNpcFontSelect = document.getElementById("customNpcFontSelect");
 const customNpcFontFileInput = document.getElementById("customNpcFontFile");
 const customNpcTextColorInput = document.getElementById("customNpcTextColor");
+const customNpcBubbleSideInput = document.getElementById("customNpcBubbleSide");
+const customNpcBubbleSideLabel = document.getElementById("customNpcBubbleSideLabel");
+const customNpcScaleInput = document.getElementById("customNpcScale");
+const customNpcOffsetXInput = document.getElementById("customNpcOffsetX");
+const customNpcOffsetYInput = document.getElementById("customNpcOffsetY");
 const voiceFilesInput = document.getElementById("voiceFilesInput");
 const voiceLinesContainer = document.getElementById("voiceLinesContainer");
 const voiceFilesList = document.getElementById("voiceFilesList");
 const createNpcBtn = document.getElementById("createNpcBtn");
+const cancelNpcEditBtn = document.getElementById("cancelNpcEditBtn");
 const customNpcPosition = document.getElementById("customNpcPosition");
 const enableMusicEl = document.getElementById('enableMusic');
 const enableSfxEl = document.getElementById('enableSfx');
@@ -1048,6 +1054,7 @@ const importCustomSfxFilesInput = document.getElementById('importCustomSfxFiles'
 const customSfxListEl = document.getElementById('customSfxList');
 
 let pendingVoiceFiles = {};
+let editingNpcName = null;
 
 function normalizeCustomSfxKey(fileName){
     return String(fileName || '')
@@ -1405,12 +1412,206 @@ function displayVoiceFiles(){
     }
 }
 
+function clampNumber(value, min, max, fallback){
+    const n = Number(value);
+    if(!Number.isFinite(n)) return fallback;
+    return Math.min(max, Math.max(min, n));
+}
+
+function getNpcDefaultTextColorForPosition(position){
+    return position === 'front' ? "#000000" : "#FFFFFF";
+}
+
+function resolveNpcTextColorForSave(colorValue, position){
+    const normalized = String(colorValue || '').trim();
+    if(!normalized) return getNpcDefaultTextColorForPosition(position);
+    if(position === 'front' && (/^#(?:fff|ffffff)$/i.test(normalized) || /^white$/i.test(normalized))) return "#000000";
+    return normalized;
+}
+
+function getCustomNpcVisualSettingsFromData(npcData){
+    const position = (npcData && npcData.position) ? npcData.position : 'back';
+    const bubbleSide = (position === 'front' && npcData && npcData.bubbleSide === 'left') ? 'left' : 'right';
+    return {
+        bubbleSide,
+        scale: clampNumber(npcData && npcData.scale, 0.2, 4, 1),
+        offsetX: clampNumber(npcData && npcData.offsetX, -50, 50, 0),
+        offsetY: clampNumber(npcData && npcData.offsetY, -50, 50, 0)
+    };
+}
+
+function getCustomNpcVisualSettingsFromInputs(position){
+    return {
+        bubbleSide: (position === 'front' && customNpcBubbleSideInput && customNpcBubbleSideInput.value === 'left') ? 'left' : 'right',
+        scale: clampNumber(customNpcScaleInput ? customNpcScaleInput.value : 1, 0.2, 4, 1),
+        offsetX: clampNumber(customNpcOffsetXInput ? customNpcOffsetXInput.value : 0, -50, 50, 0),
+        offsetY: clampNumber(customNpcOffsetYInput ? customNpcOffsetYInput.value : 0, -50, 50, 0)
+    };
+}
+
+function getCustomNpcBubbleSide(npcName){
+    const data = customNPCs[npcName];
+    if(!data || data.position !== 'front') return null;
+    return data.bubbleSide === 'left' ? 'left' : 'right';
+}
+
+function usesLeftBubbleForSpeaker(npcName){
+    if(LEFT_BUBBLE_NPCS.includes(npcName)) return true;
+    const customSide = getCustomNpcBubbleSide(npcName);
+    if(customSide) return customSide === 'left';
+    return false;
+}
+
+function getNpcTextColor(npcName, isFrontSpeaker){
+    const savedColor = customNpcColors[npcName];
+    if(!savedColor) return isFrontSpeaker ? "black" : "white";
+    if(isFrontSpeaker && (/^#(?:fff|ffffff)$/i.test(String(savedColor).trim()) || /^white$/i.test(String(savedColor).trim()))) return "black";
+    return savedColor;
+}
+
+function updateCustomNpcCreatorUiForPosition(){
+    const isFront = !!(customNpcPosition && customNpcPosition.value === 'front');
+    if(customNpcBubbleSideLabel) customNpcBubbleSideLabel.style.display = isFront ? 'block' : 'none';
+    if(customNpcBubbleSideInput) customNpcBubbleSideInput.style.display = isFront ? 'block' : 'none';
+    if(!editingNpcName && customNpcTextColorInput){
+        const current = String(customNpcTextColorInput.value || '').trim();
+        if(isFront && /^#(?:fff|ffffff)$/i.test(current)) customNpcTextColorInput.value = "#000000";
+        if(!isFront && /^#(?:000|000000)$/i.test(current)) customNpcTextColorInput.value = "#FFFFFF";
+    }
+}
+
+function resetCustomNpcCreatorForm(){
+    editingNpcName = null;
+    customNpcNameInput.value = "";
+    customNpcNameInput.disabled = false;
+    customNpcImageInput.value = "";
+    customNpcFontSelect.value = "Arial";
+    customNpcFontFileInput.value = "";
+    const customNpcIntroFile = document.getElementById('customNpcIntroFile');
+    const customNpcBgMusicFile = document.getElementById('customNpcBgMusicFile');
+    if(customNpcIntroFile) customNpcIntroFile.value = "";
+    if(customNpcBgMusicFile) customNpcBgMusicFile.value = "";
+    if(customNpcPosition) customNpcPosition.value = "back";
+    if(customNpcBubbleSideInput) customNpcBubbleSideInput.value = "right";
+    if(customNpcScaleInput) customNpcScaleInput.value = "1";
+    if(customNpcOffsetXInput) customNpcOffsetXInput.value = "0";
+    if(customNpcOffsetYInput) customNpcOffsetYInput.value = "0";
+    customNpcTextColorInput.value = "#FFFFFF";
+    voiceFilesInput.value = "";
+    pendingVoiceFiles = {};
+    displayVoiceFiles();
+    createNpcBtn.textContent = "Create NPC";
+    if(cancelNpcEditBtn) cancelNpcEditBtn.style.display = "none";
+    updateCustomNpcCreatorUiForPosition();
+}
+
+async function saveCustomNpcEdits(npcName){
+    if(!customNPCs[npcName]){
+        alert(`NPC "${npcName}" was not found.`);
+        return;
+    }
+    if(!DBManager.db){
+        await DBManager.init().catch(()=>{});
+    }
+    if(customNpcFontSelect.value === "custom-upload"){
+        alert("For edits, choose a preset font. Re-uploading custom font from edit mode is not supported yet.");
+        return;
+    }
+
+    const position = (customNpcPosition && customNpcPosition.value) ? customNpcPosition.value : 'back';
+    const visual = getCustomNpcVisualSettingsFromInputs(position);
+    const resolvedColor = resolveNpcTextColorForSave(customNpcTextColorInput.value, position);
+    const selectedFont = customNpcFontSelect.value || customNpcFonts[npcName] || customNPCs[npcName].font || "Arial";
+
+    customNPCs[npcName].position = position;
+    customNPCs[npcName].bubbleSide = visual.bubbleSide;
+    customNPCs[npcName].scale = visual.scale;
+    customNPCs[npcName].offsetX = visual.offsetX;
+    customNPCs[npcName].offsetY = visual.offsetY;
+    customNPCs[npcName].font = selectedFont;
+    customNPCs[npcName].textColor = resolvedColor;
+    customNpcFonts[npcName] = selectedFont;
+    customNpcColors[npcName] = resolvedColor;
+
+    await DBManager.saveNpcMetadata(npcName, customNPCs[npcName]);
+    localStorage.setItem("customNPCs", JSON.stringify(customNPCs));
+    localStorage.setItem("customNpcFonts", JSON.stringify(customNpcFonts));
+    localStorage.setItem("customNpcColors", JSON.stringify(customNpcColors));
+
+    createCustomNpcElement(npcName, customNPCs[npcName]);
+    layoutTopNPCs();
+    updateCustomNpcList();
+    resetCustomNpcCreatorForm();
+    alert(`NPC "${npcName}" updated.`);
+}
+
+function editCustomNpc(npcName){
+    const npcData = customNPCs[npcName];
+    if(!npcData){
+        alert(`NPC "${npcName}" not found.`);
+        return;
+    }
+
+    const fontName = customNpcFonts[npcName] || npcData.font || "Arial";
+    const position = npcData.position || "back";
+    const visual = getCustomNpcVisualSettingsFromData(npcData);
+    const color = customNpcColors[npcName] || npcData.textColor || getNpcDefaultTextColorForPosition(position);
+
+    editingNpcName = npcName;
+    customNpcNameInput.value = npcName;
+    customNpcNameInput.disabled = true;
+    if(customNpcPosition) customNpcPosition.value = position;
+    if(customNpcBubbleSideInput) customNpcBubbleSideInput.value = visual.bubbleSide;
+    if(customNpcScaleInput) customNpcScaleInput.value = String(visual.scale);
+    if(customNpcOffsetXInput) customNpcOffsetXInput.value = String(visual.offsetX);
+    if(customNpcOffsetYInput) customNpcOffsetYInput.value = String(visual.offsetY);
+    customNpcTextColorInput.value = color;
+
+    customNpcFontFileInput.value = "";
+    if(availableFonts[fontName]) customNpcFontSelect.value = fontName;
+    else customNpcFontSelect.value = "Arial";
+
+    createNpcBtn.textContent = "Save NPC Changes";
+    if(cancelNpcEditBtn) cancelNpcEditBtn.style.display = "block";
+    updateCustomNpcCreatorUiForPosition();
+
+    const creator = document.getElementById('npcCreatorSection');
+    const toggleBtn = document.getElementById('toggleNpcCreatorBtn');
+    if(creator){
+        creator.style.display = 'block';
+        if(toggleBtn) toggleBtn.textContent = 'Hide Custom NPC Creator';
+    }
+}
+
+if(customNpcPosition){
+    customNpcPosition.addEventListener("change", updateCustomNpcCreatorUiForPosition);
+}
+if(cancelNpcEditBtn){
+    cancelNpcEditBtn.addEventListener("click", resetCustomNpcCreatorForm);
+}
+updateCustomNpcCreatorUiForPosition();
+
 // Create NPC
 createNpcBtn.addEventListener("click", async ()=>{
-    const npcName = customNpcNameInput.value.trim().toLowerCase();
+    const typedName = customNpcNameInput.value.trim().toLowerCase();
+    const npcName = editingNpcName || typedName;
     
     if(!npcName){
         alert("Please enter an NPC name");
+        return;
+    }
+
+    if(editingNpcName){
+        try{
+            await saveCustomNpcEdits(editingNpcName);
+        }catch(e){
+            alert("Error updating NPC: " + e.message);
+        }
+        return;
+    }
+
+    if(customNPCs[npcName]){
+        alert(`NPC "${npcName}" already exists. Use Edit in Manage Custom NPCs.`);
         return;
     }
     
@@ -1541,18 +1742,26 @@ async function finializeNpcCreation(npcName, imagesArray, fontName, fontData, in
             customNpcFonts[npcName] = fontName;
         }
         
+        const position = (customNpcPosition && customNpcPosition.value) ? customNpcPosition.value : 'back';
+        const visual = getCustomNpcVisualSettingsFromInputs(position);
+        const resolvedColor = resolveNpcTextColorForSave(customNpcTextColorInput.value, position);
+
         // Store only metadata in localStorage, files are in IndexedDB
         customNPCs[npcName] = {
             imageReferences: imageReferences,  // References to IndexedDB keys, not data URLs
             voiceReferences: voiceReferences,   // References to IndexedDB keys
             font: fontName,
-            textColor: customNpcTextColorInput.value,
-            position: (customNpcPosition && customNpcPosition.value) ? customNpcPosition.value : 'back',
+            textColor: resolvedColor,
+            position: position,
+            bubbleSide: visual.bubbleSide,
+            scale: visual.scale,
+            offsetX: visual.offsetX,
+            offsetY: visual.offsetY,
             hasIntroSound: introAudioData ? true : false,
             hasBackgroundMusic: bgMusicData ? true : false
         };
         
-        customNpcColors[npcName] = customNpcTextColorInput.value;
+        customNpcColors[npcName] = resolvedColor;
         
         // Save metadata to IndexedDB
         await DBManager.saveNpcMetadata(npcName, customNPCs[npcName]);
@@ -1568,18 +1777,7 @@ async function finializeNpcCreation(npcName, imagesArray, fontName, fontData, in
         updateCustomNpcList();
         
         // Reset form
-        customNpcNameInput.value = "";
-        customNpcImageInput.value = "";
-        customNpcFontSelect.value = "Arial";
-        customNpcFontFileInput.value = "";
-        const customNpcIntroFile = document.getElementById('customNpcIntroFile');
-        const customNpcBgMusicFile = document.getElementById('customNpcBgMusicFile');
-        if(customNpcIntroFile) customNpcIntroFile.value = "";
-        if(customNpcBgMusicFile) customNpcBgMusicFile.value = "";
-        customNpcTextColorInput.value = "#FFFFFF";
-        voiceFilesInput.value = "";
-        pendingVoiceFiles = {};
-        displayVoiceFiles();
+        resetCustomNpcCreatorForm();
         
         alert(" NPC '" + npcName + "' created successfully!");
     } catch(error){
@@ -1627,9 +1825,17 @@ function createCustomNpcElement(npcName, npcData){
     npcs[npcName] = npcImg;
 
     const pos = (npcData && npcData.position) ? npcData.position : 'back';
-    npcImg.classList.remove('front', 'back');
+    const visual = getCustomNpcVisualSettingsFromData(npcData);
+    npcImg.classList.remove('front', 'back', 'right');
+    npcImg.style.left = '';
+    npcImg.style.right = '';
+    npcImg.style.top = '';
+    npcImg.style.bottom = '';
+    npcImg.style.transform = '';
     if(pos === 'front'){
         npcImg.classList.add('front');
+        if(visual.bubbleSide === 'right') npcImg.classList.add('right');
+        npcImg.style.transform = `translate(${visual.offsetX}vw, ${visual.offsetY}vh) scale(${visual.scale})`;
         absTypeNpcs.delete(npcName);
     } else {
         npcImg.classList.add('back');
@@ -1717,6 +1923,26 @@ function loadCustomNpcs(){
     updateBackgroundMusic();
     updateSpawnSounds();
     updateDespawnSounds();
+    let metadataChanged = false;
+    Object.keys(customNPCs).forEach(npcName => {
+        const npcData = customNPCs[npcName] || {};
+        const position = npcData.position || 'back';
+        const visual = getCustomNpcVisualSettingsFromData(npcData);
+        const colorFromStorage = customNpcColors[npcName] || npcData.textColor || getNpcDefaultTextColorForPosition(position);
+        const normalizedColor = resolveNpcTextColorForSave(colorFromStorage, position);
+
+        if(npcData.position !== position){ npcData.position = position; metadataChanged = true; }
+        if(npcData.bubbleSide !== visual.bubbleSide){ npcData.bubbleSide = visual.bubbleSide; metadataChanged = true; }
+        if(npcData.scale !== visual.scale){ npcData.scale = visual.scale; metadataChanged = true; }
+        if(npcData.offsetX !== visual.offsetX){ npcData.offsetX = visual.offsetX; metadataChanged = true; }
+        if(npcData.offsetY !== visual.offsetY){ npcData.offsetY = visual.offsetY; metadataChanged = true; }
+        if(npcData.textColor !== normalizedColor){ npcData.textColor = normalizedColor; metadataChanged = true; }
+        if(customNpcColors[npcName] !== normalizedColor){ customNpcColors[npcName] = normalizedColor; metadataChanged = true; }
+    });
+    if(metadataChanged){
+        localStorage.setItem("customNPCs", JSON.stringify(customNPCs));
+        localStorage.setItem("customNpcColors", JSON.stringify(customNpcColors));
+    }
     // Ensure built-in NPC elements have front/back classes (include variants)
     DAVE_VARIANTS.forEach(n => { if(npcs[n]) npcs[n].classList.add('front'); });
     PENNY_VARIANTS.forEach(n => { if(npcs[n]) npcs[n].classList.add('front'); if(n === 'penny') npcs[n].classList.add('right'); if(n === 'surfer') npcs[n].classList.add('right'); });
@@ -1747,10 +1973,23 @@ function updateCustomNpcList(){
     npcNames.forEach(npcName => {
         const item = document.createElement('div');
         item.className = 'custom-npc-item';
-        item.innerHTML = `
-            <span class="npc-name">${npcName.charAt(0).toUpperCase() + npcName.slice(1)}</span>
-            <button class="remove-btn" onclick="removeCustomNpc('${npcName}')">Remove</button>
-        `;
+        const nameEl = document.createElement('span');
+        nameEl.className = 'npc-name';
+        nameEl.textContent = npcName.charAt(0).toUpperCase() + npcName.slice(1);
+
+        const editBtn = document.createElement('button');
+        editBtn.className = 'edit-btn';
+        editBtn.textContent = 'Edit';
+        editBtn.addEventListener('click', ()=>editCustomNpc(npcName));
+
+        const removeBtn = document.createElement('button');
+        removeBtn.className = 'remove-btn';
+        removeBtn.textContent = 'Remove';
+        removeBtn.addEventListener('click', ()=>removeCustomNpc(npcName));
+
+        item.appendChild(nameEl);
+        item.appendChild(editBtn);
+        item.appendChild(removeBtn);
         listContainer.appendChild(item);
     });
 }
@@ -1787,6 +2026,7 @@ async function removeCustomNpc(npcName){
         activeFrontNPCs = activeFrontNPCs.filter(name => name !== npcName);
         activeTopNPCs = activeTopNPCs.filter(name => name !== npcName);
         absTypeNpcs.delete(npcName);
+        if(editingNpcName === npcName) resetCustomNpcCreatorForm();
 
         // Save updated metadata
         localStorage.setItem("customNPCs", JSON.stringify(customNPCs));
@@ -2327,10 +2567,12 @@ function layoutTopNPCs(){
     activeTopNPCs.forEach((npcName,i)=>{
         ensureNpcExists(npcName);
         const npc=npcs[npcName];
+        const visual = getCustomNpcVisualSettingsFromData(customNPCs[npcName]);
+        const leftPercent = 100/count*i + 100/(count*2);
         npc.style.position="absolute";
-        npc.style.top="20px";
-        npc.style.left=100/count*i + 100/(count*2)+"%";
-        npc.style.transform="translateX(-50%)";
+        npc.style.top=`calc(20px + ${visual.offsetY}vh)`;
+        npc.style.left=`calc(${leftPercent}% + ${visual.offsetX}vw)`;
+        npc.style.transform=`translateX(-50%) scale(${visual.scale})`;
         npc.style.height="35%";
         // fade in
         fadeInElement(npc);
@@ -2548,8 +2790,8 @@ function showNext(){
             if(skinVariantSel) skinVariantSel.value = line.skinVariant;
         }
 
-        // Determine which bubble to use (left for Dave/Tugboat, right for others)
-        const usesLeftBubble = LEFT_BUBBLE_NPCS.includes(line.speaker);
+        // Determine which bubble to use (left for Dave/Tugboat + custom front NPCs set to left)
+        const usesLeftBubble = usesLeftBubbleForSpeaker(line.speaker);
         const bubbleContainer = usesLeftBubble ? speech_bubble_left : speech_bubble_right;
         const bubbleImg = usesLeftBubble ? speech_bubble_left_img : speech_bubble_right_img;
         const bubbleText = usesLeftBubble ? speech_bubble_left_text : speech_bubble_right_text;
@@ -2563,10 +2805,11 @@ function showNext(){
         testImg.onerror = ()=> { bubbleImg.src = genericBubble; };
         testImg.src = sideSrc;
 
+        const bubbleColor = getNpcTextColor(line.speaker, true);
         bubbleText.style.fontFamily = getNpcFont(line.speaker);
-        bubbleText.style.color = customNpcColors[line.speaker] || "black";
+        bubbleText.style.color = bubbleColor;
         bubbleText.textContent = censorText(line.text);
-        bubbleContainer.style.setProperty('--bubble-text-color', customNpcColors[line.speaker] || 'black');
+        bubbleContainer.style.setProperty('--bubble-text-color', bubbleColor);
 
         fadeInElement(bubbleContainer, 'block');
         // set image per emotion if custom images exist
@@ -2595,7 +2838,7 @@ function showNext(){
         }
         
         topText.style.fontFamily=getNpcFont(line.speaker);
-        topText.style.color = customNpcColors[line.speaker] || "white";
+        topText.style.color = getNpcTextColor(line.speaker, false);
         fadeInElement(topDialogue, 'flex');
         topText.textContent=censorText(line.text);
         // set image per emotion if custom images exist

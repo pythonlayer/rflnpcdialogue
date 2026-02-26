@@ -16,7 +16,7 @@
 <link rel="canonical" href="https://rflnpc.netlify.app/">
 <!-- Optional: set an image path if you have one -->
 <!-- <meta property="og:image" content="https://example.com/preview.png"> -->
-<link rel="stylesheet" href="style.css?v=20260225b">
+<link rel="stylesheet" href="style.css?v=20260225c">
 </head>
 <body>
 <!-- Collapsible site description to clarify purpose and authorship -->
@@ -62,6 +62,21 @@
             <option value="front">Front NPC (bottom, like Dave/Penny)</option>
             <option value="abs">ABS (AntiBully Squad) - uses per-emotion PNGs (3 images)</option>
         </select>
+
+        <label id="customNpcBubbleSideLabel" style="margin-top: 10px;">Front Side (Bubble + NPC)</label>
+        <select id="customNpcBubbleSide" style="width: 100%; margin-top: 5px; padding: 6px; background: #333; color: white; border: 1px solid #444; font-size: 14px; box-sizing: border-box;">
+            <option value="right">Right (Penny side)</option>
+            <option value="left">Left (Dave side)</option>
+        </select>
+
+        <label style="margin-top: 10px;">Scale</label>
+        <input type="number" id="customNpcScale" min="0.2" max="4" step="0.05" value="1" style="width: 100%; margin-top: 5px; padding: 6px; background: #333; color: white; border: 1px solid #444; font-size: 14px; box-sizing: border-box;">
+
+        <label style="margin-top: 10px;">Offset X (vw, +/-)</label>
+        <input type="number" id="customNpcOffsetX" min="-50" max="50" step="0.5" value="0" style="width: 100%; margin-top: 5px; padding: 6px; background: #333; color: white; border: 1px solid #444; font-size: 14px; box-sizing: border-box;">
+
+        <label style="margin-top: 10px;">Offset Y (vh, +/-)</label>
+        <input type="number" id="customNpcOffsetY" min="-50" max="50" step="0.5" value="0" style="width: 100%; margin-top: 5px; padding: 6px; background: #333; color: white; border: 1px solid #444; font-size: 14px; box-sizing: border-box;">
         
         <label style="margin-top: 10px;">Intro Sound (OGG) - Optional</label>
         <input type="file" id="customNpcIntroFile" accept="audio/ogg" style="width: 100%; margin-top: 5px; padding: 6px; background: #333; color: white; border: 1px solid #444; font-size: 14px; box-sizing: border-box;">
@@ -76,7 +91,8 @@
         </div>
         <div id="voiceFilesList" style="margin-top: 5px; font-size: 12px;"></div>
         
-        <button id="createNpcBtn" style="width: 100%; margin-top: 10px; padding: 8px; background: #4CAF50; color: white; border: 1px solid #45a049; font-size: 14px; cursor: pointer; border-radius: 4px;"> Create NPC</button>
+        <button id="createNpcBtn" style="width: 100%; margin-top: 10px; padding: 8px; background: #4CAF50; color: white; border: 1px solid #45a049; font-size: 14px; cursor: pointer; border-radius: 4px;">Create NPC</button>
+        <button id="cancelNpcEditBtn" style="display:none; width: 100%; margin-top: 8px; padding: 8px; background: #555; color: white; border: 1px solid #666; font-size: 14px; cursor: pointer; border-radius: 4px;">Cancel Edit</button>
     </div>
 
     <details class="editor-collapse">
@@ -234,7 +250,7 @@
 <audio id="introAudio" preload="auto"></audio>
 <audio id="bgAudio" preload="auto"></audio>
 
-<script src="script.js?v=20260225b"></script>
+<script src="script.js?v=20260225c"></script>
 </body>
 </html>
 
