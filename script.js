@@ -1,12 +1,24 @@
 /* ---------- INDEXEDDB MANAGER FOR LARGE FILES ---------- */
 const DBManager = {
     db: null,
+    initPromise: null,
     
     async init(){
-        return new Promise((resolve, reject)=>{
+        if(this.db) return this.db;
+        if(this.initPromise) return this.initPromise;
+
+        this.initPromise = new Promise((resolve, reject)=>{
             const req = indexedDB.open('DialogueMakerDB', 1);
-            req.onerror = ()=>reject(req.error);
-            req.onsuccess = ()=>{ this.db = req.result; resolve(); };
+            req.onerror = ()=>{
+                const err = req.error;
+                this.initPromise = null;
+                reject(err);
+            };
+            req.onsuccess = ()=>{
+                this.db = req.result;
+                this.initPromise = null;
+                resolve(this.db);
+            };
             req.onupgradeneeded = (e)=>{
                 const db = e.target.result;
                 if(!db.objectStoreNames.contains('npcFiles')){
@@ -16,9 +28,17 @@ const DBManager = {
                 if(!db.objectStoreNames.contains('customNpcs')) db.createObjectStore('customNpcs', { keyPath: 'npcName' });
             };
         });
+        return this.initPromise;
+    },
+
+    async ensureReady(){
+        if(!this.db){
+            await this.init();
+        }
     },
     
     async saveFile(type, npcName, fileName, data){
+        await this.ensureReady();
         return new Promise((resolve, reject)=>{
             const tx = this.db.transaction('npcFiles', 'readwrite');
             const store = tx.objectStore('npcFiles');
@@ -30,6 +50,7 @@ const DBManager = {
     },
     
     async getFile(type, npcName, fileName){
+        await this.ensureReady();
         return new Promise((resolve, reject)=>{
             const tx = this.db.transaction('npcFiles', 'readonly');
             const store = tx.objectStore('npcFiles');
@@ -41,6 +62,7 @@ const DBManager = {
     },
     
     async deleteNpcFiles(npcName){
+        await this.ensureReady();
         return new Promise((resolve, reject)=>{
             const tx = this.db.transaction('npcFiles', 'readwrite');
             const store = tx.objectStore('npcFiles');
@@ -57,6 +79,7 @@ const DBManager = {
     },
     
     async saveNpcMetadata(npcName, metadata){
+        await this.ensureReady();
         return new Promise((resolve, reject)=>{
             const tx = this.db.transaction('customNpcs', 'readwrite');
             const store = tx.objectStore('customNpcs');
@@ -67,6 +90,7 @@ const DBManager = {
     },
     
     async getNpcMetadata(npcName){
+        await this.ensureReady();
         return new Promise((resolve, reject)=>{
             const tx = this.db.transaction('customNpcs', 'readonly');
             const store = tx.objectStore('customNpcs');
@@ -77,6 +101,7 @@ const DBManager = {
     },
 
     async deleteNpcMetadata(npcName){
+        await this.ensureReady();
         return new Promise((resolve, reject)=>{
             const tx = this.db.transaction('customNpcs', 'readwrite');
             const store = tx.objectStore('customNpcs');
@@ -868,10 +893,19 @@ async function setNpcImageForEmotion(npcName, emotion, skinVariantOverride){
         
         // Handle ABS (AntiBullySquad) with instant image swap (no transition)
         if(npcName === 'antibullysquad'){
+            const absImageByEmotion = {
+                SAY: 'shout.png',
+                SHOUT: 'shout.png',
+                EXCITED: 'shout.png',
+                TIRED: 'tired.png',
+                PLAYFUL: 'playful.png',
+                SILENT: 'shout.png'
+            };
+            const absImage = absImageByEmotion[up] || 'shout.png';
             // Disable transition temporarily for instant swap
             el.style.transition = 'none';
             // Set image path based on emotion
-            el.src = `antibullysquad/${up.toLowerCase()}.png`;
+            el.src = `antibullysquad/${absImage}`;
             // Re-enable transition after swap
             setTimeout(()=>{ el.style.transition = 'opacity 0.35s ease, transform 0.35s ease'; }, 10);
             return;

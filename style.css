@@ -358,7 +358,7 @@ html { touch-action: manipulation; }
 #lawn { position: absolute; inset: 0; background: url("modernstage.png") center / cover no-repeat; background-size: cover; background-position: center; background-repeat: no-repeat; image-rendering: optimizeQuality; }
 
 /* ---------- NPCs ---------- */
-.npc { position: absolute; pointer-events: auto; display: none; cursor: pointer; width: auto; height: auto; max-height: 30vh; max-width: 40vw; object-fit: contain; user-select: none; -webkit-user-select: none; }
+.npc { position: absolute; pointer-events: auto; display: none; cursor: pointer; width: auto; height: auto; max-height: 30vh; max-width: 40vw; object-fit: contain; user-select: none; -webkit-user-select: none; z-index: 20; }
 
 /* Keyframe animations for slide-in from right */
 @keyframes slideInFromRight {
@@ -384,9 +384,9 @@ html { touch-action: manipulation; }
 }
 
 /* Specific classes for front/back NPCs */
-.npc.front { bottom: 12vh; left: 3vw; max-height: 25vh; }
+.npc.front { bottom: 12vh; left: 3vw; max-height: 25vh; z-index: 70; }
 .npc.front.right { right: 3vw; left: auto; }
-.npc.back { top: 4vh; transform: translateX(-50%); max-height: 28vh; }
+.npc.back { top: 4vh; transform: translateX(-50%); max-height: 28vh; z-index: 30; }
 
 /* Fade in/out animations for spawn/despawn (back NPCs only) */
 .npc { transition: opacity 0.35s ease, transform 0.35s ease; opacity: 0; }
@@ -514,7 +514,7 @@ html { touch-action: manipulation; }
     .npc.back { max-height: 16vh; }
     #dave { max-height: 60%; }
     #penny { max-height: 60%; }
-    .dialogue span { font-size: 14px; }
+    .dialogue span { font-size: 19px; }
     #hint { font-size: 11px; }
 }
 
@@ -523,7 +523,7 @@ html { touch-action: manipulation; }
     .npc { max-height: 22vh; max-width: 48vw; }
     .npc.front { max-height: 24vh; }
     .npc.back { max-height: 19vh; }
-    .dialogue span { font-size: 16px; }
+    .dialogue span { font-size: 21px; }
 }
 
 /* Small mobile fallback (max 600px overall) */
@@ -531,7 +531,7 @@ html { touch-action: manipulation; }
     .npc { max-height: 20vh; max-width: 45vw; }
     .npc.front { max-height: 22vh; }
     .npc.back { max-height: 18vh; }
-    .dialogue span { font-size: 5.5vw; }
+    .dialogue span { font-size: calc(5.5vw + 5px); }
     #lawn { background-size: cover; background-position: center; }
     /* switch active scales & positioning to mobile-specific values */
     :root {
@@ -571,7 +571,7 @@ html { touch-action: manipulation; }
     .npc.back { max-height: 27vh; }
     #dave { max-height: 70%; }
     #penny { max-height: 70%; }
-    .dialogue span { font-size: 18px; }
+    .dialogue span { font-size: 23px; }
     /* switch to desktop positioning for tablet */
     :root {
         --dave-left: var(--dave-left-desktop);
@@ -597,7 +597,7 @@ html { touch-action: manipulation; }
     .npc.back { max-height: 28vh; }
     #dave { max-height: 75%; }
     #penny { max-height: 75%; }
-    .dialogue span { font-size: 22px; }
+    .dialogue span { font-size: 35px; }
 }
 
 /* Large desktop (1440px+) */
@@ -608,7 +608,7 @@ html { touch-action: manipulation; }
     .npc.back { max-height: 30vh; }
     #dave { max-height: 80%; }
     #penny { max-height: 80%; }
-    .dialogue span { font-size: 24px; }
+    .dialogue span { font-size: 29px; }
 }
 
 /* ---------- Dialogue Boxes ---------- */
@@ -624,22 +624,23 @@ html { touch-action: manipulation; }
     text-align: center;
     padding: 20px;
     box-sizing: border-box;
+    z-index: 50;
 }
 #bottomDialogue { bottom: 30px; } #topDialogue { top: 260px; }
-.dialogue span { max-width: 60%; font-size: 22px; line-height: 1.4; word-wrap: break-word; }
+.dialogue span { max-width: 60%; font-size: 24px !important; line-height: 1.4; word-wrap: break-word; }
 
 @media (max-width: 600px) {
     #bottomDialogue, #topDialogue { height: auto; padding: 15px; }
-    .dialogue span { font-size: 18px; max-width: 90%; }
+    .dialogue span { font-size: 35px; max-width: 90%; }
 }
 
 /* Landscape mode on small screens */
 @media (max-height: 500px) and (orientation: landscape) {
     .npc { max-height: 70vh !important; }
-    #bottomDialogue, #topDialogue { height: auto; padding: 10px; bottom: 10px !important; top: auto !important; }
-    .dialogue span { font-size: 14px; }
+    #bottomDialogue, #topDialogue { height: auto; padding: 10px;         bottom: 125px !important; top: auto !important; }
+    .dialogue span { font-size: 19px; }
     .speechBubble {
-        --bubble-font-size: 12px;
+        --bubble-font-size: 17px;
     }
     #speech_bubble_left, #speech_bubble_right {
         bottom: 80px !important;
@@ -661,7 +662,7 @@ html { touch-action: manipulation; }
     --bubble-width: 29%;
     --bubble-max-width: 600px;
     --bubble-aspect: 16/9;
-    --bubble-font-size: 18px;
+    --bubble-font-size: 23px;
     --bubble-text-color: black;
     --bubble-bottom: 30px;
     --bubble-text-top: 22%;
@@ -678,6 +679,7 @@ html { touch-action: manipulation; }
     height: auto;
     aspect-ratio: var(--bubble-aspect);
     opacity: 0;
+    z-index: 80;
 }
 
 .speechBubble.show {
@@ -742,7 +744,7 @@ html { touch-action: manipulation; }
     .speechBubble {
         --bubble-width: 29%;
         --bubble-max-width: 300px;
-        --bubble-font-size: 13px;
+        --bubble-font-size: 18px;
         --bubble-text-top: 23%;
         --bubble-text-height: 50%;
         --bubble-text-width: 58%;
@@ -757,7 +759,7 @@ html { touch-action: manipulation; }
     .speechBubble {
         --bubble-width: 29%;
         --bubble-max-width: 350px;
-        --bubble-font-size: 14px;
+        --bubble-font-size: 19px;
         --bubble-text-top: 22%;
         --bubble-text-height: 50%;
         --bubble-text-width: 57%;
@@ -780,7 +782,7 @@ html { touch-action: manipulation; }
     .speechBubble {
         --bubble-width: 52%;
         --bubble-max-width: 450px;
-        --bubble-font-size: 16px;
+        --bubble-font-size: 21px;
         --bubble-text-top: 22%;
         --bubble-text-height: 49%;
         --bubble-text-width: 57%;
@@ -803,7 +805,7 @@ html { touch-action: manipulation; }
     .speechBubble {
         --bubble-width: 29%;
         --bubble-max-width: 550px;
-        --bubble-font-size: 18px;
+        --bubble-font-size: 23px;
         --bubble-text-top: 22%;
         --bubble-text-height: 48%;
         --bubble-text-width: 55%;
@@ -826,7 +828,7 @@ html { touch-action: manipulation; }
     .speechBubble {
         --bubble-width: 29%;
         --bubble-max-width: 650px;
-        --bubble-font-size: 20px;
+        --bubble-font-size: 25px;
         --bubble-text-top: 22%;
         --bubble-text-height: 47%;
         --bubble-text-width: 54%;
