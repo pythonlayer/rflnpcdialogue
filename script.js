@@ -281,7 +281,13 @@ const npcFonts = {
     missinfo:"NewsFlashBB", huntaria:"Cromagnum", greedy:"Century751BTBold",
     antibullysquad:"UnmaskedBB", plankton:"Arial", douglas:"Arial", tugboat:"Arial"
 };
-
+const zombossSounds = {
+    SAY: ["zomboss/say1.ogg","zomboss/say2.ogg","zomboss/say3.ogg","zomboss/say4.ogg","zomboss/say5.ogg","zomboss/say6.ogg"],
+    SHOUT: ["zomboss/shout1.ogg","zomboss/shout2.ogg","zomboss/shout3.ogg"],
+    PLAYFUL: ["zomboss/playful1.ogg","zomboss/playful2.ogg","zomboss/playful3.ogg"],
+    TIRED: ["zomboss/tired1.ogg","zomboss/tired2.ogg","zomboss/tired3.ogg"],
+    EXCITED: ["zomboss/excited1.ogg","zomboss/excited2.ogg","zomboss/excited3.ogg"]
+};
 // Fonts for Penny variants
 npcFonts['soldier'] = "BrianneHand";
 npcFonts['surfer'] = "BrianneHand";
