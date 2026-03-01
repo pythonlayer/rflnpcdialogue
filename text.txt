@@ -6,12 +6,6 @@
   {
     "type": "say",
     "speaker": "antibullysquad",
-    "emotion": "SILENT",
-    "text": "test"
-  },
-  {
-    "type": "say",
-    "speaker": "antibullysquad",
     "emotion": "SHOUT",
     "text": "test"
   },

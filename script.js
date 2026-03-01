@@ -105,11 +105,36 @@ const npcIntroAudios = {};
 // Custom NPCs storage (persisted in localStorage - only metadata, files in IndexedDB)
 let customNPCs = JSON.parse(localStorage.getItem("customNPCs")) || {};
 let customNpcVoiceLines = JSON.parse(localStorage.getItem("customNpcVoiceLines")) || {};
-// Playback toggles (mirrors UI checkboxes)
-let enableMusic = JSON.parse(localStorage.getItem('enableMusic'));
-if (enableMusic === null) enableMusic = true;
-let enableSfx = JSON.parse(localStorage.getItem('enableSfx'));
-if (enableSfx === null) enableSfx = true;
+// Playback volumes (0-100%). Legacy checkbox values are used only as fallback defaults.
+function clampVolumePercent(value, fallback){
+    const parsed = Number(value);
+    if(!Number.isFinite(parsed)) return fallback;
+    return Math.max(0, Math.min(100, Math.round(parsed)));
+}
+function clampAudioVolume(value){
+    const parsed = Number(value);
+    if(!Number.isFinite(parsed)) return 0;
+    return Math.max(0, Math.min(1, parsed));
+}
+
+const legacyEnableMusic = JSON.parse(localStorage.getItem('enableMusic'));
+const legacyEnableSfx = JSON.parse(localStorage.getItem('enableSfx'));
+const savedMusicVolume = localStorage.getItem('musicVolume');
+const savedSfxVolume = localStorage.getItem('sfxVolume');
+
+let musicVolume = savedMusicVolume !== null
+    ? clampVolumePercent(savedMusicVolume, 50)
+    : (legacyEnableMusic === false ? 0 : 50);
+let sfxVolume = savedSfxVolume !== null
+    ? clampVolumePercent(savedSfxVolume, 80)
+    : (legacyEnableSfx === false ? 0 : 80);
+
+// Kept for compatibility with existing checks in playback code.
+let enableMusic = musicVolume > 0;
+let enableSfx = sfxVolume > 0;
+
+function getMusicVolumeRatio(){ return musicVolume / 100; }
+function getSfxVolumeRatio(){ return sfxVolume / 100; }
 
 // Initialize IndexedDB on load
 DBManager.init().catch(e=>console.log('IndexedDB init error:', e));
@@ -753,7 +778,8 @@ async function playCommonSfx(name, volume = 1.0){
         const a = document.createElement('audio');
         a.id = elId;
         a.preload = 'auto';
-        a.volume = volume;
+        a._baseVolume = clampAudioVolume(volume);
+        a.volume = clampAudioVolume(a._baseVolume * getSfxVolumeRatio());
 
         if(name.startsWith('custom:')){
             const customKey = name.slice('custom:'.length);
@@ -1084,8 +1110,10 @@ const voiceFilesList = document.getElementById("voiceFilesList");
 const createNpcBtn = document.getElementById("createNpcBtn");
 const cancelNpcEditBtn = document.getElementById("cancelNpcEditBtn");
 const customNpcPosition = document.getElementById("customNpcPosition");
-const enableMusicEl = document.getElementById('enableMusic');
-const enableSfxEl = document.getElementById('enableSfx');
+const musicVolumeEl = document.getElementById('musicVolume');
+const sfxVolumeEl = document.getElementById('sfxVolume');
+const musicVolumeValueEl = document.getElementById('musicVolumeValue');
+const sfxVolumeValueEl = document.getElementById('sfxVolumeValue');
 const importLawnFile = document.getElementById('importLawnFile');
 const importCustomSfxFilesInput = document.getElementById('importCustomSfxFiles');
 const customSfxListEl = document.getElementById('customSfxList');
@@ -1284,21 +1312,88 @@ if(importCustomSfxFilesInput){
 }
 refreshCustomSfxUi();
 
-// toggles
-if(enableMusicEl){
-    enableMusicEl.checked = enableMusic;
-    enableMusicEl.addEventListener('change', ()=>{
-        enableMusic = !!enableMusicEl.checked;
+function refreshVolumeLabels(){
+    if(musicVolumeValueEl) musicVolumeValueEl.textContent = `${musicVolume}%`;
+    if(sfxVolumeValueEl) sfxVolumeValueEl.textContent = `${sfxVolume}%`;
+}
+
+function applyCurrentAudioVolumes(){
+    const musicRatio = getMusicVolumeRatio();
+    const sfxRatio = getSfxVolumeRatio();
+
+    if(backgroundAudio){
+        backgroundAudio.volume = clampAudioVolume(0.5 * musicRatio);
+    }
+
+    Object.keys(npcBgAudios).forEach(npcName=>{
+        const bgEl = npcBgAudios[npcName];
+        if(bgEl) bgEl.volume = clampAudioVolume(0.5 * musicRatio);
+    });
+    document.querySelectorAll('[id^="bgNpc_"]').forEach(el=>{
+        el.volume = clampAudioVolume(0.5 * musicRatio);
+    });
+    document.querySelectorAll('[id^="introNpc_"]').forEach(el=>{
+        el.volume = clampAudioVolume(musicRatio);
+    });
+
+    const introEl = document.getElementById('introAudio');
+    if(introEl) introEl.volume = clampAudioVolume(musicRatio);
+
+    if(lastVoiceAudio){
+        lastVoiceAudio.volume = clampAudioVolume(0.8 * sfxRatio);
+    }
+
+    const spawnEl = document.getElementById('spawnAudio');
+    if(spawnEl) spawnEl.volume = clampAudioVolume(sfxRatio);
+
+    const leaveEl = document.getElementById('leaveAudio');
+    if(leaveEl) leaveEl.volume = clampAudioVolume(sfxRatio);
+
+    const sfxEl = document.getElementById('sfxAudio');
+    if(sfxEl) sfxEl.volume = clampAudioVolume(sfxRatio);
+
+    document.querySelectorAll('[id^="commonSfx_"]').forEach(el=>{
+        const base = Number.isFinite(el._baseVolume) ? el._baseVolume : 1;
+        el.volume = clampAudioVolume(base * sfxRatio);
+    });
+}
+
+function setMusicVolume(value, persist = true){
+    musicVolume = clampVolumePercent(value, musicVolume);
+    enableMusic = musicVolume > 0;
+    if(persist){
+        localStorage.setItem('musicVolume', String(musicVolume));
         localStorage.setItem('enableMusic', JSON.stringify(enableMusic));
-    });
+    }
+    if(musicVolumeEl) musicVolumeEl.value = String(musicVolume);
+    refreshVolumeLabels();
+    applyCurrentAudioVolumes();
 }
-if(enableSfxEl){
-    enableSfxEl.checked = enableSfx;
-    enableSfxEl.addEventListener('change', ()=>{
-        enableSfx = !!enableSfxEl.checked;
+
+function setSfxVolume(value, persist = true){
+    sfxVolume = clampVolumePercent(value, sfxVolume);
+    enableSfx = sfxVolume > 0;
+    if(persist){
+        localStorage.setItem('sfxVolume', String(sfxVolume));
         localStorage.setItem('enableSfx', JSON.stringify(enableSfx));
-    });
+    }
+    if(sfxVolumeEl) sfxVolumeEl.value = String(sfxVolume);
+    refreshVolumeLabels();
+    applyCurrentAudioVolumes();
 }
+
+if(musicVolumeEl){
+    musicVolumeEl.value = String(musicVolume);
+    musicVolumeEl.addEventListener('input', ()=>setMusicVolume(musicVolumeEl.value));
+    musicVolumeEl.addEventListener('change', ()=>setMusicVolume(musicVolumeEl.value));
+}
+if(sfxVolumeEl){
+    sfxVolumeEl.value = String(sfxVolume);
+    sfxVolumeEl.addEventListener('input', ()=>setSfxVolume(sfxVolumeEl.value));
+    sfxVolumeEl.addEventListener('change', ()=>setSfxVolume(sfxVolumeEl.value));
+}
+refreshVolumeLabels();
+applyCurrentAudioVolumes();
 
 // Import lawn file - use IndexedDB to avoid localStorage bloat
 if(importLawnFile){
@@ -2189,6 +2284,7 @@ function playNpcIntroAndBackground(npc){
             ia.src = introSrc;
             ia.currentTime = 0;
             ia.loop = false;
+            ia.volume = clampAudioVolume(getMusicVolumeRatio());
             npcIntroAudios[npc] = ia;
 
             // When intro ends, start NPC-specific background if provided
@@ -2202,7 +2298,7 @@ function playNpcIntroAndBackground(npc){
                         bgEl.src = npcBg;
                         bgEl.currentTime = 0;
                         bgEl.loop = true;
-                        bgEl.volume = 0.5;
+                        bgEl.volume = clampAudioVolume(0.5 * getMusicVolumeRatio());
                         npcBgAudios[npc] = bgEl;
                         // Mark this NPC as the current music owner
                         currentMusicNpc = npc;
@@ -2223,7 +2319,7 @@ function playNpcIntroAndBackground(npc){
                     bgEl.src = npcBg;
                     bgEl.currentTime = 0;
                     bgEl.loop = true;
-                    bgEl.volume = 0.5;
+                    bgEl.volume = clampAudioVolume(0.5 * getMusicVolumeRatio());
                     npcBgAudios[npc] = bgEl;
                     // Mark this NPC as the current music owner
                     currentMusicNpc = npc;
@@ -2242,7 +2338,7 @@ function playNpcIntroAndBackground(npc){
                     bgEl.src = npcBg;
                     bgEl.currentTime = 0;
                     bgEl.loop = true;
-                    bgEl.volume = 0.5;
+                    bgEl.volume = clampAudioVolume(0.5 * getMusicVolumeRatio());
                     npcBgAudios[npc] = bgEl;
                     bgEl.load();
                     bgEl.play().catch(e2=>console.error('[BG MUSIC] NPC bg play error:', e2.message));
@@ -2256,7 +2352,7 @@ function playNpcIntroAndBackground(npc){
                 bgEl.src = npcBg;
                 bgEl.currentTime = 0;
                 bgEl.loop = true;
-                bgEl.volume = 0.5;
+                bgEl.volume = clampAudioVolume(0.5 * getMusicVolumeRatio());
                 npcBgAudios[npc] = bgEl;
                 bgEl.load();
                 bgEl.play().catch(e=>console.error('[BG MUSIC] NPC bg play error:', e.message));
@@ -2311,7 +2407,7 @@ function startBackgroundMusic(npc){
     backgroundAudio.src = bgSrc;
     backgroundAudio.currentTime = 0;
     backgroundAudio.loop = true;
-    backgroundAudio.volume = 0.5;
+    backgroundAudio.volume = clampAudioVolume(0.5 * getMusicVolumeRatio());
     
     // Clear previous event handlers
     backgroundAudio.onerror = null;
@@ -2410,7 +2506,7 @@ async function playNPCSound(npc, emotion, text, voiceVariantOverride){
 
     // Play new audio
     const audio = new Audio(clip);
-    audio.volume = 0.8;
+    audio.volume = clampAudioVolume(0.8 * getSfxVolumeRatio());
     audio._npcName = npc;
     lastVoiceAudio = audio; // Track this audio so next one can stop it
     
@@ -2752,6 +2848,7 @@ function showNext(){
                     if(!spawnEl){ spawnEl = document.createElement('audio'); spawnEl.id = 'spawnAudio'; spawnEl.preload = 'auto'; document.body.appendChild(spawnEl); }
                     spawnEl.src = spawnSrc;
                     spawnEl.currentTime = 0;
+                    spawnEl.volume = clampAudioVolume(getSfxVolumeRatio());
                     spawnEl.onloadeddata = ()=>{
                         spawnEl.play().catch(e=>console.log('Spawn play error:', e));
                     };
@@ -2793,6 +2890,7 @@ function showNext(){
                 if(!leaveEl){ leaveEl = document.createElement('audio'); leaveEl.id = 'leaveAudio'; leaveEl.preload = 'auto'; document.body.appendChild(leaveEl); }
                 leaveEl.src = despawnSrc;
                 leaveEl.currentTime = 0;
+                leaveEl.volume = clampAudioVolume(getSfxVolumeRatio());
                 leaveEl.onloadeddata = ()=>{
                     leaveEl.play().catch(e=>console.log('Leave play error:', e));
                 };
