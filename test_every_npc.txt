@@ -1,0 +1,610 @@
+﻿[
+    {
+        "type":  "enter",
+        "speaker":  "dave"
+    },
+    {
+        "type":  "say",
+        "speaker":  "dave",
+        "emotion":  "SAY",
+        "text":  "[TEST] Crazy Dave line 1."
+    },
+    {
+        "type":  "say",
+        "speaker":  "dave",
+        "emotion":  "SAY",
+        "text":  "[TEST] Crazy Dave line 2."
+    },
+    {
+        "type":  "say",
+        "speaker":  "dave",
+        "emotion":  "SAY",
+        "text":  "[TEST] Crazy Dave line 3."
+    },
+    {
+        "type":  "say",
+        "speaker":  "dave",
+        "emotion":  "SAY",
+        "text":  "[TEST] Crazy Dave line 4."
+    },
+    {
+        "type":  "say",
+        "speaker":  "dave",
+        "emotion":  "SAY",
+        "text":  "[TEST] Crazy Dave line 5."
+    },
+    {
+        "type":  "leave",
+        "speaker":  "dave"
+    },
+    {
+        "type":  "enter",
+        "speaker":  "penny"
+    },
+    {
+        "type":  "say",
+        "speaker":  "penny",
+        "emotion":  "SAY",
+        "text":  "[TEST] Penny line 1."
+    },
+    {
+        "type":  "say",
+        "speaker":  "penny",
+        "emotion":  "SAY",
+        "text":  "[TEST] Penny line 2."
+    },
+    {
+        "type":  "say",
+        "speaker":  "penny",
+        "emotion":  "SAY",
+        "text":  "[TEST] Penny line 3."
+    },
+    {
+        "type":  "say",
+        "speaker":  "penny",
+        "emotion":  "SAY",
+        "text":  "[TEST] Penny line 4."
+    },
+    {
+        "type":  "say",
+        "speaker":  "penny",
+        "emotion":  "SAY",
+        "text":  "[TEST] Penny line 5."
+    },
+    {
+        "type":  "leave",
+        "speaker":  "penny"
+    },
+    {
+        "type":  "enter",
+        "speaker":  "spongebob"
+    },
+    {
+        "type":  "say",
+        "speaker":  "spongebob",
+        "emotion":  "SHOUT",
+        "text":  "[TEST] SpongeBob line 1."
+    },
+    {
+        "type":  "say",
+        "speaker":  "spongebob",
+        "emotion":  "SHOUT",
+        "text":  "[TEST] SpongeBob line 2."
+    },
+    {
+        "type":  "say",
+        "speaker":  "spongebob",
+        "emotion":  "SHOUT",
+        "text":  "[TEST] SpongeBob line 3."
+    },
+    {
+        "type":  "say",
+        "speaker":  "spongebob",
+        "emotion":  "SHOUT",
+        "text":  "[TEST] SpongeBob line 4."
+    },
+    {
+        "type":  "say",
+        "speaker":  "spongebob",
+        "emotion":  "SHOUT",
+        "text":  "[TEST] SpongeBob line 5."
+    },
+    {
+        "type":  "leave",
+        "speaker":  "spongebob"
+    },
+    {
+        "type":  "enter",
+        "speaker":  "zomboss"
+    },
+    {
+        "type":  "say",
+        "speaker":  "zomboss",
+        "emotion":  "SAY",
+        "text":  "[TEST] Zomboss line 1."
+    },
+    {
+        "type":  "say",
+        "speaker":  "zomboss",
+        "emotion":  "SAY",
+        "text":  "[TEST] Zomboss line 2."
+    },
+    {
+        "type":  "say",
+        "speaker":  "zomboss",
+        "emotion":  "SAY",
+        "text":  "[TEST] Zomboss line 3."
+    },
+    {
+        "type":  "say",
+        "speaker":  "zomboss",
+        "emotion":  "SAY",
+        "text":  "[TEST] Zomboss line 4."
+    },
+    {
+        "type":  "say",
+        "speaker":  "zomboss",
+        "emotion":  "SAY",
+        "text":  "[TEST] Zomboss line 5."
+    },
+    {
+        "type":  "leave",
+        "speaker":  "zomboss"
+    },
+    {
+        "type":  "enter",
+        "speaker":  "zombert"
+    },
+    {
+        "type":  "say",
+        "speaker":  "zombert",
+        "emotion":  "SAY",
+        "text":  "[TEST] Zombert line 1."
+    },
+    {
+        "type":  "say",
+        "speaker":  "zombert",
+        "emotion":  "SAY",
+        "text":  "[TEST] Zombert line 2."
+    },
+    {
+        "type":  "say",
+        "speaker":  "zombert",
+        "emotion":  "SAY",
+        "text":  "[TEST] Zombert line 3."
+    },
+    {
+        "type":  "say",
+        "speaker":  "zombert",
+        "emotion":  "SAY",
+        "text":  "[TEST] Zombert line 4."
+    },
+    {
+        "type":  "say",
+        "speaker":  "zombert",
+        "emotion":  "SAY",
+        "text":  "[TEST] Zombert line 5."
+    },
+    {
+        "type":  "leave",
+        "speaker":  "zombert"
+    },
+    {
+        "type":  "enter",
+        "speaker":  "camo"
+    },
+    {
+        "type":  "say",
+        "speaker":  "camo",
+        "emotion":  "SAY",
+        "text":  "[TEST] Captain Camo line 1."
+    },
+    {
+        "type":  "say",
+        "speaker":  "camo",
+        "emotion":  "SAY",
+        "text":  "[TEST] Captain Camo line 2."
+    },
+    {
+        "type":  "say",
+        "speaker":  "camo",
+        "emotion":  "SAY",
+        "text":  "[TEST] Captain Camo line 3."
+    },
+    {
+        "type":  "say",
+        "speaker":  "camo",
+        "emotion":  "SAY",
+        "text":  "[TEST] Captain Camo line 4."
+    },
+    {
+        "type":  "say",
+        "speaker":  "camo",
+        "emotion":  "SAY",
+        "text":  "[TEST] Captain Camo line 5."
+    },
+    {
+        "type":  "leave",
+        "speaker":  "camo"
+    },
+    {
+        "type":  "enter",
+        "speaker":  "lucky"
+    },
+    {
+        "type":  "say",
+        "speaker":  "lucky",
+        "emotion":  "SAY",
+        "text":  "[TEST] Lucky line 1."
+    },
+    {
+        "type":  "say",
+        "speaker":  "lucky",
+        "emotion":  "SAY",
+        "text":  "[TEST] Lucky line 2."
+    },
+    {
+        "type":  "say",
+        "speaker":  "lucky",
+        "emotion":  "SAY",
+        "text":  "[TEST] Lucky line 3."
+    },
+    {
+        "type":  "say",
+        "speaker":  "lucky",
+        "emotion":  "SAY",
+        "text":  "[TEST] Lucky line 4."
+    },
+    {
+        "type":  "say",
+        "speaker":  "lucky",
+        "emotion":  "SAY",
+        "text":  "[TEST] Lucky line 5."
+    },
+    {
+        "type":  "leave",
+        "speaker":  "lucky"
+    },
+    {
+        "type":  "enter",
+        "speaker":  "nanny"
+    },
+    {
+        "type":  "say",
+        "speaker":  "nanny",
+        "emotion":  "SAY",
+        "text":  "[TEST] Nanny line 1."
+    },
+    {
+        "type":  "say",
+        "speaker":  "nanny",
+        "emotion":  "SAY",
+        "text":  "[TEST] Nanny line 2."
+    },
+    {
+        "type":  "say",
+        "speaker":  "nanny",
+        "emotion":  "SAY",
+        "text":  "[TEST] Nanny line 3."
+    },
+    {
+        "type":  "say",
+        "speaker":  "nanny",
+        "emotion":  "SAY",
+        "text":  "[TEST] Nanny line 4."
+    },
+    {
+        "type":  "say",
+        "speaker":  "nanny",
+        "emotion":  "SAY",
+        "text":  "[TEST] Nanny line 5."
+    },
+    {
+        "type":  "leave",
+        "speaker":  "nanny"
+    },
+    {
+        "type":  "enter",
+        "speaker":  "missinfo"
+    },
+    {
+        "type":  "say",
+        "speaker":  "missinfo",
+        "emotion":  "SAY",
+        "text":  "[TEST] Miss Information line 1."
+    },
+    {
+        "type":  "say",
+        "speaker":  "missinfo",
+        "emotion":  "SAY",
+        "text":  "[TEST] Miss Information line 2."
+    },
+    {
+        "type":  "say",
+        "speaker":  "missinfo",
+        "emotion":  "SAY",
+        "text":  "[TEST] Miss Information line 3."
+    },
+    {
+        "type":  "say",
+        "speaker":  "missinfo",
+        "emotion":  "SAY",
+        "text":  "[TEST] Miss Information line 4."
+    },
+    {
+        "type":  "say",
+        "speaker":  "missinfo",
+        "emotion":  "SAY",
+        "text":  "[TEST] Miss Information line 5."
+    },
+    {
+        "type":  "leave",
+        "speaker":  "missinfo"
+    },
+    {
+        "type":  "enter",
+        "speaker":  "huntaria"
+    },
+    {
+        "type":  "say",
+        "speaker":  "huntaria",
+        "emotion":  "SAY",
+        "text":  "[TEST] Huntaria line 1."
+    },
+    {
+        "type":  "say",
+        "speaker":  "huntaria",
+        "emotion":  "SAY",
+        "text":  "[TEST] Huntaria line 2."
+    },
+    {
+        "type":  "say",
+        "speaker":  "huntaria",
+        "emotion":  "SAY",
+        "text":  "[TEST] Huntaria line 3."
+    },
+    {
+        "type":  "say",
+        "speaker":  "huntaria",
+        "emotion":  "SAY",
+        "text":  "[TEST] Huntaria line 4."
+    },
+    {
+        "type":  "say",
+        "speaker":  "huntaria",
+        "emotion":  "SAY",
+        "text":  "[TEST] Huntaria line 5."
+    },
+    {
+        "type":  "leave",
+        "speaker":  "huntaria"
+    },
+    {
+        "type":  "enter",
+        "speaker":  "greedy"
+    },
+    {
+        "type":  "say",
+        "speaker":  "greedy",
+        "emotion":  "SAY",
+        "text":  "[TEST] Greedy line 1."
+    },
+    {
+        "type":  "say",
+        "speaker":  "greedy",
+        "emotion":  "SAY",
+        "text":  "[TEST] Greedy line 2."
+    },
+    {
+        "type":  "say",
+        "speaker":  "greedy",
+        "emotion":  "SAY",
+        "text":  "[TEST] Greedy line 3."
+    },
+    {
+        "type":  "say",
+        "speaker":  "greedy",
+        "emotion":  "SAY",
+        "text":  "[TEST] Greedy line 4."
+    },
+    {
+        "type":  "say",
+        "speaker":  "greedy",
+        "emotion":  "SAY",
+        "text":  "[TEST] Greedy line 5."
+    },
+    {
+        "type":  "leave",
+        "speaker":  "greedy"
+    },
+    {
+        "type":  "enter",
+        "speaker":  "antibullysquad"
+    },
+    {
+        "type":  "say",
+        "speaker":  "antibullysquad",
+        "emotion":  "SHOUT",
+        "text":  "[TEST] ABS line 1."
+    },
+    {
+        "type":  "say",
+        "speaker":  "antibullysquad",
+        "emotion":  "SHOUT",
+        "text":  "[TEST] ABS line 2."
+    },
+    {
+        "type":  "say",
+        "speaker":  "antibullysquad",
+        "emotion":  "SHOUT",
+        "text":  "[TEST] ABS line 3."
+    },
+    {
+        "type":  "say",
+        "speaker":  "antibullysquad",
+        "emotion":  "SHOUT",
+        "text":  "[TEST] ABS line 4."
+    },
+    {
+        "type":  "say",
+        "speaker":  "antibullysquad",
+        "emotion":  "SHOUT",
+        "text":  "[TEST] ABS line 5."
+    },
+    {
+        "type":  "leave",
+        "speaker":  "antibullysquad"
+    },
+    {
+        "type":  "enter",
+        "speaker":  "plankton"
+    },
+    {
+        "type":  "say",
+        "speaker":  "plankton",
+        "emotion":  "SAY",
+        "text":  "[TEST] Plankton line 1."
+    },
+    {
+        "type":  "say",
+        "speaker":  "plankton",
+        "emotion":  "SAY",
+        "text":  "[TEST] Plankton line 2."
+    },
+    {
+        "type":  "say",
+        "speaker":  "plankton",
+        "emotion":  "SAY",
+        "text":  "[TEST] Plankton line 3."
+    },
+    {
+        "type":  "say",
+        "speaker":  "plankton",
+        "emotion":  "SAY",
+        "text":  "[TEST] Plankton line 4."
+    },
+    {
+        "type":  "say",
+        "speaker":  "plankton",
+        "emotion":  "SAY",
+        "text":  "[TEST] Plankton line 5."
+    },
+    {
+        "type":  "leave",
+        "speaker":  "plankton"
+    },
+    {
+        "type":  "enter",
+        "speaker":  "douglas"
+    },
+    {
+        "type":  "say",
+        "speaker":  "douglas",
+        "emotion":  "SAY",
+        "text":  "[TEST] Douglas line 1."
+    },
+    {
+        "type":  "say",
+        "speaker":  "douglas",
+        "emotion":  "SAY",
+        "text":  "[TEST] Douglas line 2."
+    },
+    {
+        "type":  "say",
+        "speaker":  "douglas",
+        "emotion":  "SAY",
+        "text":  "[TEST] Douglas line 3."
+    },
+    {
+        "type":  "say",
+        "speaker":  "douglas",
+        "emotion":  "SAY",
+        "text":  "[TEST] Douglas line 4."
+    },
+    {
+        "type":  "say",
+        "speaker":  "douglas",
+        "emotion":  "SAY",
+        "text":  "[TEST] Douglas line 5."
+    },
+    {
+        "type":  "leave",
+        "speaker":  "douglas"
+    },
+    {
+        "type":  "enter",
+        "speaker":  "tugboat"
+    },
+    {
+        "type":  "say",
+        "speaker":  "tugboat",
+        "emotion":  "SHOUT",
+        "text":  "[TEST] Tugboat line 1."
+    },
+    {
+        "type":  "say",
+        "speaker":  "tugboat",
+        "emotion":  "SHOUT",
+        "text":  "[TEST] Tugboat line 2."
+    },
+    {
+        "type":  "say",
+        "speaker":  "tugboat",
+        "emotion":  "SHOUT",
+        "text":  "[TEST] Tugboat line 3."
+    },
+    {
+        "type":  "say",
+        "speaker":  "tugboat",
+        "emotion":  "SHOUT",
+        "text":  "[TEST] Tugboat line 4."
+    },
+    {
+        "type":  "say",
+        "speaker":  "tugboat",
+        "emotion":  "SHOUT",
+        "text":  "[TEST] Tugboat line 5."
+    },
+    {
+        "type":  "leave",
+        "speaker":  "tugboat"
+    },
+    {
+        "type":  "enter",
+        "speaker":  "chimanta"
+    },
+    {
+        "type":  "say",
+        "speaker":  "chimanta",
+        "emotion":  "SAY",
+        "text":  "[TEST] Chimanta line 1."
+    },
+    {
+        "type":  "say",
+        "speaker":  "chimanta",
+        "emotion":  "SAY",
+        "text":  "[TEST] Chimanta line 2."
+    },
+    {
+        "type":  "say",
+        "speaker":  "chimanta",
+        "emotion":  "SAY",
+        "text":  "[TEST] Chimanta line 3."
+    },
+    {
+        "type":  "say",
+        "speaker":  "chimanta",
+        "emotion":  "SAY",
+        "text":  "[TEST] Chimanta line 4."
+    },
+    {
+        "type":  "say",
+        "speaker":  "chimanta",
+        "emotion":  "SAY",
+        "text":  "[TEST] Chimanta line 5."
+    },
+    {
+        "type":  "leave",
+        "speaker":  "chimanta"
+    }
+]

@@ -1,0 +1,34 @@
+[
+  {
+    "type": "enter",
+    "speaker": "antibullysquad"
+  },
+  {
+    "type": "say",
+    "speaker": "antibullysquad",
+    "emotion": "SILENT",
+    "text": "test"
+  },
+  {
+    "type": "say",
+    "speaker": "antibullysquad",
+    "emotion": "SHOUT",
+    "text": "test"
+  },
+  {
+    "type": "say",
+    "speaker": "antibullysquad",
+    "emotion": "TIRED",
+    "text": "test"
+  },
+  {
+    "type": "say",
+    "speaker": "antibullysquad",
+    "emotion": "PLAYFUL",
+    "text": "test"
+  },
+  {
+    "type": "leave",
+    "speaker": "antibullysquad"
+  }
+]

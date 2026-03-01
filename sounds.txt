@@ -1,0 +1,105 @@
+const ABS = {
+    SHOUT: [
+        "antibullysquad/shout.ogg",
+        "antibullysquad/shout2.ogg",
+        "antibullysquad/shout3.ogg",
+        "antibullysquad/shout4.ogg",
+        "antibullysquad/shout5.ogg",
+        "antibullysquad/shout6.ogg",
+        "antibullysquad/shout7.ogg"
+    ],
+    TIRED: [
+        "antibullysquad/tired.ogg",
+        "antibullysquad/tired2.ogg",
+        "antibullysquad/tired3.ogg",
+        "antibullysquad/tired4.ogg"
+    ],
+    PLAYFUL: [
+        "antibullysquad/playful.ogg",
+        "antibullysquad/playful2.ogg",
+        "antibullysquad/playful3.ogg",
+        "antibullysquad/playful4.ogg",
+        "antibullysquad/playful5.ogg",
+        "antibullysquad/playful6.ogg"
+    ]
+};
+const camoSounds = {
+    SAY: ["camo/say72.ogg", "camo/say73.ogg", "camo/say74.ogg", "camo/say75.ogg", "camo/say76.ogg", "camo/say77.ogg", "camo/say78.ogg", "camo/say79.ogg", "camo/say80.ogg", "camo/say81.ogg", "camo/say82.ogg", "camo/say83.ogg", "camo/say84.ogg", "camo/say85.ogg", "camo/say86.ogg", "camo/say87.ogg", "camo/say88.ogg", "camo/say89.ogg", "camo/say90.ogg", "camo/say91.ogg"],
+    SHOUT: ["camo/shout41.ogg", "camo/shout42.ogg", "camo/shout43.ogg", "camo/shout44.ogg", "camo/shout45.ogg", "camo/shout46.ogg", "camo/shout47.ogg", "camo/shout48.ogg", "camo/shout49.ogg", "camo/shout50.ogg", "camo/shout51.ogg", "camo/shout52.ogg", "camo/shout54.ogg", "camo/shout55.ogg", "camo/shout56.ogg", "camo/shout57.ogg", "camo/shout58.ogg", "camo/shout59.ogg", "camo/shout60.ogg"],
+    TIRED: ["camo/tired30.ogg", "camo/tired31.ogg", "camo/tired32.ogg", "camo/tired33.ogg", "camo/tired34.ogg", "camo/tired35.ogg", "camo/tired36.ogg"],
+    PLAYFUL: ["camo/playful34.ogg", "camo/playful35.ogg"],
+};
+
+const greedySounds = {
+    SAY: ["greedy/say1.ogg", "greedy/say100.ogg", "greedy/say101.ogg", "greedy/say102.ogg", "greedy/say103.ogg", "greedy/say104.ogg", "greedy/say105.ogg", "greedy/say2.ogg", "greedy/say3.ogg", "greedy/say4.ogg", "greedy/say5.ogg", "greedy/say6.ogg", "greedy/say7.ogg", "greedy/say8.ogg", "greedy/say92.ogg", "greedy/say93.ogg", "greedy/say94.ogg", "greedy/say95.ogg", "greedy/say96.ogg", "greedy/say97.ogg", "greedy/say98.ogg", "greedy/say99.ogg"],
+    SHOUT: ["greedy/shout1.ogg", "greedy/shout2.ogg", "greedy/shout3.ogg", "greedy/shout4.ogg", "greedy/shout5.ogg", "greedy/shout6.ogg", "greedy/shout61.ogg", "greedy/shout62.ogg", "greedy/shout63.ogg", "greedy/shout64.ogg", "greedy/shout65.ogg", "greedy/shout66.ogg", "greedy/shout67.ogg", "greedy/shout68.ogg", "greedy/shout69.ogg", "greedy/shout70.ogg", "greedy/shout71.ogg", "greedy/shout72.ogg", "greedy/shout73.ogg", "greedy/shout74.ogg", "greedy/shout75.ogg"],
+    TIRED: ["greedy/tired37.ogg", "greedy/tired38.ogg", "greedy/tired39.ogg", "greedy/tired40.ogg", "greedy/tired41.ogg", "greedy/tired42.ogg", "greedy/tired43.ogg", "greedy/tired44.ogg"],
+    PLAYFUL: ["greedy/playful36.ogg", "greedy/playful37.ogg"],
+};
+
+const huntariaSounds = {
+    SAY: ["huntaria/say44.ogg", "huntaria/say45.ogg", "huntaria/say46.ogg", "huntaria/say47.ogg", "huntaria/say48.ogg", "huntaria/say49.ogg", "huntaria/say50.ogg", "huntaria/say51.ogg", "huntaria/say52.ogg", "huntaria/say53.ogg", "huntaria/say54.ogg", "huntaria/say55.ogg", 
+"huntaria/say56.ogg", "huntaria/say57.ogg", "huntaria/say58.ogg", "huntaria/say59.ogg", "huntaria/say60.ogg", "huntaria/say61.ogg", "huntaria/say62.ogg", "huntaria/say63.ogg", "huntaria/say64.ogg", "huntaria/say65.ogg", "huntaria/say66.ogg", "huntaria/say67.ogg", "huntaria/say68.ogg", "huntaria/say69.ogg", "huntaria/say70.ogg"],
+    SHOUT: ["huntaria/shout29.ogg", "huntaria/shout30.ogg", "huntaria/shout31.ogg", "huntaria/shout32.ogg", "huntaria/shout33.ogg", "huntaria/shout34.ogg", "huntaria/shout35.ogg", "huntaria/shout36.ogg", "huntaria/shout37.ogg", "huntaria/shout38.ogg", "huntaria/shout39.ogg", "huntaria/shout40.ogg"],
+    TIRED: ["huntaria/tired22.ogg", "huntaria/tired23.ogg", "huntaria/tired24.ogg", "huntaria/tired25.ogg", "huntaria/tired26.ogg", "huntaria/tired27.ogg", "huntaria/tired28.ogg", "huntaria/tired29.ogg"],
+    PLAYFUL: ["huntaria/playful29.ogg", "huntaria/playful30.ogg", "huntaria/playful31.ogg", "huntaria/playful32.ogg", "huntaria/playful33.ogg"],
+};
+
+const luckySounds = {
+    SAY: ["lucky/say31.ogg", "lucky/say32.ogg", "lucky/say33.ogg", "lucky/say35.ogg", "lucky/say36.ogg", "lucky/say37.ogg", "lucky/say38.ogg", "lucky/say39.ogg", "lucky/say40.ogg", "lucky/say41.ogg", "lucky/say42.ogg", "lucky/say43.ogg"],
+    SHOUT: ["lucky/shout1.mp3", "lucky/shout2.mp3", "lucky/shout25.ogg", "lucky/shout26.ogg", "lucky/shout27.ogg", "lucky/shout28.ogg"], 
+    TIRED: ["lucky/tired1.mp3", "lucky/tired17.ogg", "lucky/tired18.ogg", "lucky/tired19.ogg", "lucky/tired2.mp3", "lucky/tired20.ogg", "lucky/tired21.ogg"],
+    PLAYFUL: ["lucky/playful1.mp3", "lucky/playful2.mp3", "lucky/playful24.ogg", "lucky/playful25.ogg", "lucky/playful26.ogg", "lucky/playful27.ogg", "lucky/playful28.ogg"],
+};
+
+const missinfoSounds = {
+    SAY: ["missinfo/say1.ogg", "missinfo/say18.ogg", "missinfo/say19.ogg", "missinfo/say2.ogg", "missinfo/say20.ogg", "missinfo/say21.ogg", "missinfo/say22.ogg", "missinfo/say23.ogg", "missinfo/say24.ogg", "missinfo/say27.ogg", "missinfo/say29.ogg", "missinfo/say3.ogg", "missinfo/say4.ogg"],
+};
+
+const nannySounds = {
+    SAY: ["nanny/say.ogg", "nanny/say1.ogg", "nanny/say10.ogg", "nanny/say11.ogg", "nanny/say12.ogg", "nanny/say13.ogg", "nanny/say14.ogg", "nanny/say15.ogg", "nanny/say16.ogg", "nanny/say17.ogg", "nanny/say2.ogg", "nanny/say3.ogg", "nanny/say4.ogg", "nanny/say5.ogg", "nanny/say6.ogg", "nanny/say7.ogg", "nanny/say8.ogg", "nanny/say9.ogg"],
+    SHOUT: ["nanny/shout1.ogg", "nanny/shout10.ogg", "nanny/shout11.ogg", "nanny/shout12.ogg", "nanny/shout13.ogg", "nanny/shout14.ogg", 
+"nanny/shout15.ogg", "nanny/shout16.ogg", "nanny/shout17.ogg", "nanny/shout18.ogg", "nanny/shout19.ogg", "nanny/shout20.ogg", "nanny/shout21.ogg", "nanny/shout22.ogg", "nanny/shout23.ogg", "nanny/shout24.ogg", "nanny/shout8.ogg", "nanny/shout9.ogg"],
+    TIRED: ["nanny/tired10.ogg", "nanny/tired11.ogg", "nanny/tired12.ogg", "nanny/tired13.ogg", "nanny/tired14.ogg", "nanny/tired15.ogg", "nanny/tired16.ogg", "nanny/tired5.ogg", "nanny/tired6.ogg", "nanny/tired7.ogg", "nanny/tired8.ogg", "nanny/tired9.ogg"],
+    PLAYFUL: ["nanny/playful10.ogg", "nanny/playful11.ogg", "nanny/playful12.ogg", "nanny/playful13.ogg", "nanny/playful14.ogg", "nanny/playful15.ogg", "nanny/playful16.ogg", "nanny/playful17.ogg", "nanny/playful18.ogg", "nanny/playful19.ogg", "nanny/playful20.ogg", "nanny/playful21.ogg", "nanny/playful22.ogg", "nanny/playful7.ogg", "nanny/playful8.ogg", "nanny/playful9.ogg"],
+    EXCITED: ["nanny/excited1.ogg"],
+};
+
+const zombertSounds = {
+    SAY: ["zombert/say1.mp3", "zombert/say106.ogg", "zombert/say107.ogg", "zombert/say108.ogg", "zombert/say109.ogg", "zombert/say110.ogg", "zombert/say111.ogg", "zombert/say2.mp3", "zombert/say3.mp3", "zombert/say4.mp3"],
+    SHOUT: ["zombert/shout2.mp3", "zombert/shout3.mp3", "zombert/shout76.ogg", "zombert/shout77.ogg"],
+    TIRED: ["zombert/tired1.mp3"],
+    EXCITED: ["zombert/excited1.mp3"],
+};
+const npcSpawnSounds = {
+    dave: "dave/SPAWN.ogg",
+    penny: "weenie/SPAWN.ogg",
+    camo: null,
+    zomboss: "zomboss/spawn.ogg",
+    zombert: "zombert/spawn.ogg",
+    lucky: "lucky/spawn.ogg",
+    nanny: "nanny/spawn.ogg",
+    missinfo: "missinfo/spawn.ogg",
+    huntaria: "huntaria/spawn.ogg",
+    greedy: "greedy/spawn.ogg",
+    antibullysquad: "antibullysquad/spawn.ogg",
+    plankton: null,
+    douglas: null,
+    tugboat: null
+};
+const npcDespawnSounds = {
+    dave: "dave/outro.ogg",
+    penny: "weenie/outro.ogg",
+    camo: "camo/outro.ogg",
+    zomboss: "zomboss/outro.ogg",
+    zombert: "zombert/outro.ogg",
+    lucky: "lucky/outro.ogg",
+    nanny: "nanny/outro.ogg",
+    missinfo: "missinfo/outro.ogg",
+    huntaria: "huntaria/outro.ogg",
+    greedy: "greedy/outro.ogg",
+    antibullysquad: "antibullysquad/outro.ogg",
+    plankton: null,
+    douglas: null,
+    tugboat: null
+};
