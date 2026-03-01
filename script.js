@@ -325,7 +325,7 @@ function isFrontNpc(npcName){
 
 /* ---------- NPC FONTS ---------- */
 const npcFonts = {
-    dave:"BrianneHand", penny:"BrianneHand", spongebob:"KrustyKrab", zomboss:"AshleyScript",
+    dave:"BrianneHand", penny:"Pico12", spongebob:"KrustyKrab", zomboss:"AshleyScript",
     zombert:"ROGLyonsType", camo:"RockwellCondensed",
     lucky:"Blackadder", nanny:"InformalRoman",
     missinfo:"NewsFlashBB", huntaria:"Cromagnum", greedy:"Century751BTBold",
@@ -359,6 +359,7 @@ function normalizeFontName(fontName){
         brianhand: "BrianneHand",
         briannehand: "BrianneHand",
         brianneshand: "BrianneHand",
+        pico12: "Pico12",
         rockwellcondensed: "RockwellCondensed",
         century751bold: "Century751BTBold",
         century751btbold: "Century751BTBold"
@@ -1246,6 +1247,7 @@ const availableFonts = {
     "HouseOfTerror": "House of Terror",
     "InformalRoman": "Informal Roman",
     "KrustyKrab": "Krusty Krab",
+    "Pico12": "Pico12",
     "NewsFlashBB": "News Flash BB",
     "ROGLyonsType": "ROG Lyons Type",
     "RockwellCondensed": "Rockwell Condensed",
