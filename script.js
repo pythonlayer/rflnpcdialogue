@@ -877,7 +877,7 @@ function getNpcSounds(npc, emotion, voiceVariantOverride){
     if(npc === 'nanny') return nannySounds[emotion] || [];
     if(npc === 'huntaria') return huntariaSounds[emotion] || [];
     if(npc === 'antibullysquad') return ABS[emotion] || [];
-    if(npc === 'missinfo') return missinfo[emotion] || [];
+    if(npc === 'missinfo') return missinfoSounds[emotion] || [];
     if(npc === 'greedy') return greedySounds[emotion] || [];
     if(npc === 'plankton') return planktonSounds[emotion] || [];
     if(npc === 'douglas') return douglasSounds[emotion] || [];
