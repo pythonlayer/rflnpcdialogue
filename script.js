@@ -415,20 +415,14 @@ const bannedWords = [
   "ass","a$$",
   "cunt","c*nt","kunt",
   "dick","d1ck","dik",
-  "cock","c0ck","kock",
   "pussy","p*ssy","pu55y",
   "whore","wh0re","hoe",
   "slut","5lut",
   "bastard","b4stard",
-  "crap","cr4p",
-  "piss","p1ss",
   "cum","c0m",
   "jerk","j3rk",
-  "suck","s*ck",
   "tits","t1ts",
-  "boobs","b00bs",
-  "butt","a55",
-  "fart",
+  "boobs","b00bs","a55",
   "poop","p00p",
 
   // ===== THREATS / HARASSMENT =====
@@ -439,8 +433,6 @@ const bannedWords = [
   "n i g g e r",
   "f a g g o t",
   "c h i n k",
-  "s h i t",
-  "f u c k"
 ];
 
 // Generate random censoring characters
@@ -612,7 +604,7 @@ const luckySounds = {
 };
 
 const missinfoSounds = {
-    SAY: ["missinfo/say1.ogg", "missinfo/say18.ogg", "missinfo/say19.ogg", "missinfo/say2.ogg", "missinfo/say20.ogg", "missinfo/say21.ogg", "missinfo/say22.ogg", "missinfo/say23.ogg", "missinfo/say24.ogg", "missinfo/say27.ogg", "missinfo/say29.ogg", "missinfo/say3.ogg", "missinfo/say4.ogg"],
+    SAY: ["missinfo/say18.ogg", "missinfo/say19.ogg","missinfo/say20.ogg", "missinfo/say21.ogg", "missinfo/say22.ogg", "missinfo/say23.ogg", "missinfo/say24.ogg", "missinfo/say27.ogg", "missinfo/say29.ogg"],
 };
 
 const nannySounds = {
@@ -844,6 +836,43 @@ async function playCommonSfx(name, volume = 1.0){
         a.play().catch(e=>console.error('CommonSfx play error:', e.message));
         return a;
     }catch(e){ console.error('playCommonSfx error', e); return null; }
+}
+
+function playNpcTransitionSfx(src, type){
+    if(!isPlaying || !enableSfx || !src) return null;
+
+    const cleanType = type === 'leave' ? 'leave' : 'spawn';
+    const uid = `${Date.now()}_${Math.floor(Math.random() * 1000000)}`;
+    const elId = `${cleanType}Audio_${uid}`;
+    const a = document.createElement('audio');
+    a.id = elId;
+    a.preload = 'auto';
+    a.volume = clampAudioVolume(getSfxVolumeRatio());
+    a.src = src;
+
+    const cleanup = ()=>{
+        a.onloadeddata = null;
+        a.onended = null;
+        a.onerror = null;
+        try{ a.remove(); }catch(e){}
+    };
+
+    a.onended = cleanup;
+    a.onerror = ()=>{
+        console.log(cleanType === 'leave' ? 'Leave sound load error' : 'Spawn sound load error');
+        cleanup();
+    };
+
+    const playNow = ()=>{ a.play().catch(e=>console.log(cleanType === 'leave' ? 'Leave play error:' : 'Spawn play error:', e)); };
+    a.onloadeddata = playNow;
+    document.body.appendChild(a);
+
+    if(a.readyState >= 2){
+        a.onloadeddata = null;
+        playNow();
+    }
+
+    return a;
 }
 
 /* ---------- NPC SOUNDS LOOKUP ---------- */
@@ -1381,9 +1410,15 @@ function applyCurrentAudioVolumes(){
 
     const spawnEl = document.getElementById('spawnAudio');
     if(spawnEl) spawnEl.volume = clampAudioVolume(sfxRatio);
+    document.querySelectorAll('[id^="spawnAudio_"]').forEach(el=>{
+        el.volume = clampAudioVolume(sfxRatio);
+    });
 
     const leaveEl = document.getElementById('leaveAudio');
     if(leaveEl) leaveEl.volume = clampAudioVolume(sfxRatio);
+    document.querySelectorAll('[id^="leaveAudio_"]').forEach(el=>{
+        el.volume = clampAudioVolume(sfxRatio);
+    });
 
     const sfxEl = document.getElementById('sfxAudio');
     if(sfxEl) sfxEl.volume = clampAudioVolume(sfxRatio);
@@ -2735,6 +2770,8 @@ function resetScene(){
     try{
         document.querySelectorAll('[id^="introNpc_"]').forEach(el=>{ try{ el.pause(); el.currentTime=0; el.remove(); }catch(e){} });
         document.querySelectorAll('[id^="bgNpc_"]').forEach(el=>{ try{ el.pause(); el.currentTime=0; el.remove(); }catch(e){} });
+        document.querySelectorAll('[id^="spawnAudio_"]').forEach(el=>{ try{ el.pause(); el.currentTime=0; el.remove(); }catch(e){} });
+        document.querySelectorAll('[id^="leaveAudio_"]').forEach(el=>{ try{ el.pause(); el.currentTime=0; el.remove(); }catch(e){} });
     }catch(e){}
 
     // Stop any lingering voice audio
@@ -2880,17 +2917,7 @@ function showNext(){
             if(isPlaying){
                 const spawnSrc = (customNPCs[line.speaker] && customNPCs[line.speaker].spawnSound) || npcSpawnSounds[line.speaker];
                 if(spawnSrc && enableSfx){
-                    let spawnEl = document.getElementById('spawnAudio');
-                    if(!spawnEl){ spawnEl = document.createElement('audio'); spawnEl.id = 'spawnAudio'; spawnEl.preload = 'auto'; document.body.appendChild(spawnEl); }
-                    spawnEl.src = spawnSrc;
-                    spawnEl.currentTime = 0;
-                    spawnEl.volume = clampAudioVolume(getSfxVolumeRatio());
-                    spawnEl.onloadeddata = ()=>{
-                        spawnEl.play().catch(e=>console.log('Spawn play error:', e));
-                    };
-                    spawnEl.onerror = ()=>{
-                        console.log('Spawn sound load error');
-                    };
+                    playNpcTransitionSfx(spawnSrc, 'spawn');
                 }
             }
             
@@ -2922,17 +2949,7 @@ function showNext(){
         if(isPlaying){
             const despawnSrc = (customNPCs[line.speaker] && customNPCs[line.speaker].despawnSound) || npcDespawnSounds[line.speaker] || npcSpawnSounds[line.speaker];
             if(despawnSrc && enableSfx){
-                let leaveEl = document.getElementById('leaveAudio');
-                if(!leaveEl){ leaveEl = document.createElement('audio'); leaveEl.id = 'leaveAudio'; leaveEl.preload = 'auto'; document.body.appendChild(leaveEl); }
-                leaveEl.src = despawnSrc;
-                leaveEl.currentTime = 0;
-                leaveEl.volume = clampAudioVolume(getSfxVolumeRatio());
-                leaveEl.onloadeddata = ()=>{
-                    leaveEl.play().catch(e=>console.log('Leave play error:', e));
-                };
-                leaveEl.onerror = ()=>{
-                    console.log('Leave sound load error');
-                };
+                playNpcTransitionSfx(despawnSrc, 'leave');
             }
         }
         
