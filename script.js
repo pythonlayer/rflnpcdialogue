@@ -520,7 +520,14 @@ const daveSkinVariants = {
 /* ---------- ZOMBERT SKIN VARIANTS ---------- */
 const zombertSkinVariants = {
     default: "zombert.png",
-    super: "zombert/superzombert.png"
+    super: "zombert/superzombert.png",
+    king: "zombert/HD_King_Zombert_NPC_Icon.webp"
+};
+
+/* ---------- NANNY SKIN VARIANTS ---------- */
+const nannySkinVariants = {
+    default: "nanny.png",
+    shadowqueen: "nanny/HD_Shadow_Queen_Nanny.webp"
 };
 
 /* ---------- LUCKY & MISSINFO SKIN VARIANTS ---------- */
@@ -983,6 +990,13 @@ async function setNpcImageForEmotion(npcName, emotion, skinVariantOverride){
             return;
         }
 
+        // Handle Nanny skin variants
+        if(npcName === 'nanny'){
+            const skinVariant = skinVariantOverride || document.getElementById('skinVariant')?.value || 'default';
+            el.src = nannySkinVariants[skinVariant] || 'nanny.png';
+            return;
+        }
+
         // Handle MissInfo skin variants
         if(npcName === 'missinfo'){
             const skinVariant = skinVariantOverride || document.getElementById('skinVariant')?.value || 'default';
@@ -1099,6 +1113,16 @@ speakerSel.addEventListener("change", ()=>{
         // Populate with MissInfo skins
         skinVariantSel.innerHTML = '';
         Object.keys(missinfoSkinVariants).forEach(skinKey => {
+            const option = document.createElement('option');
+            option.value = skinKey;
+            option.textContent = skinKey.charAt(0).toUpperCase() + skinKey.slice(1);
+            skinVariantSel.appendChild(option);
+        });
+    } else if(speaker === 'nanny'){
+        skinVariantLabel.style.display = 'block';
+        skinVariantSel.style.display = 'block';
+        skinVariantSel.innerHTML = '';
+        Object.keys(nannySkinVariants).forEach(skinKey => {
             const option = document.createElement('option');
             option.value = skinKey;
             option.textContent = skinKey.charAt(0).toUpperCase() + skinKey.slice(1);
@@ -3050,7 +3074,7 @@ function showNext(){
         }
         
         // Apply skin variants for top NPCs that support skins (Zombert, Lucky, MissInfo, etc.)
-        if(line.skinVariant && (line.speaker === 'zombert' || line.speaker === 'lucky' || line.speaker === 'missinfo')){
+        if(line.skinVariant && (line.speaker === 'zombert' || line.speaker === 'lucky' || line.speaker === 'missinfo' || line.speaker === 'nanny')){
             const skinVariantSel = document.getElementById('skinVariant');
             if(skinVariantSel) skinVariantSel.value = line.skinVariant;
         }
