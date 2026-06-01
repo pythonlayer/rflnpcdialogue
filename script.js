@@ -2824,7 +2824,7 @@ function layoutTopNPCs(){
         npc.style.position="absolute";
         npc.style.top=`calc(20px + ${visual.offsetY}vh)`;
         npc.style.left=`calc(${leftPercent}% + ${visual.offsetX}vw)`;
-        npc.style.transform=`translateX(-50%) scale(1.5)`;
+        npc.style.transform=`translateX(-50%) scale(${visual.scale + 0.2})`;
         npc.style.height="35%";
         // fade in
         fadeInElement(npc);
