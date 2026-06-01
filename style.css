@@ -90,7 +90,7 @@ html { touch-action: manipulation; }
 :root {
     /* Desktop defaults (can be edited) */
     --dave-scale-desktop: 1.3;
-    --penny-scale-desktop: 1.0;
+    --penny-scale-desktop: 1.5;
     --spongebob-scale-desktop: 1.4;
     --bubble-dave-scale-desktop: 1;
     --bubble-penny-scale-desktop: 1;
@@ -121,13 +121,13 @@ html { touch-action: manipulation; }
 
     /* ---------- Penny positioning variables (Desktop) ---------- */
     --penny-left-desktop: auto;
-    --penny-bottom-desktop: 13%;
-    --penny-right-desktop: 0%;
+    --penny-bottom-desktop: 9%;
+    --penny-right-desktop: -23%;
 
     /* ---------- Penny positioning variables (Mobile) ---------- */
     --penny-left-mobile: auto;
-    --penny-bottom-mobile: -15%;
-    --penny-right-mobile: 0%;
+    --penny-bottom-desktop: 9%;
+    --penny-right-desktop: -23%;
 
     /* ---------- SpongeBob positioning variables (Desktop) ---------- */
     --spongebob-left-desktop: auto;
@@ -628,7 +628,7 @@ html { touch-action: manipulation; }
     left: 0;
     right: 0;
     height: 150px;
-    background: rgba(0, 0, 0, 0.45);
+    background: rgba(0, 0, 0, 0.75);
     display: none;
     align-items: center;
     justify-content: center;
