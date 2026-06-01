@@ -126,8 +126,8 @@ html { touch-action: manipulation; }
 
     /* ---------- Penny positioning variables (Mobile) ---------- */
     --penny-left-mobile: auto;
-    --penny-bottom-mobile: 30%;
-    --penny-right-mobile: -1%;
+    --penny-bottom-mobile: -15%;
+    --penny-right-mobile: 0%;
 
     /* ---------- SpongeBob positioning variables (Desktop) ---------- */
     --spongebob-left-desktop: auto;
@@ -446,6 +446,7 @@ html { touch-action: manipulation; }
     bottom: var(--penny-bottom);
     left: var(--penny-left);
     right: var(--penny-right);
+    max-height: 75%;
     transform: scale(var(--penny-scale));
 }
 
@@ -539,6 +540,8 @@ html { touch-action: manipulation; }
     .npc { max-height: 20vh; max-width: 45vw; }
     .npc.front { max-height: 22vh; }
     .npc.back { max-height: 18vh; }
+    #dave { max-height: 55%; }
+    #penny { max-height: 55%; }
     .dialogue span { font-size: calc(5.5vw + 5px); }
     #lawn { background-size: cover; background-position: center; }
     /* switch active scales & positioning to mobile-specific values */
@@ -705,8 +708,8 @@ html { touch-action: manipulation; }
 
 /* Penny bubble (right side) */
 #speech_bubble_right {
-    right: 11%;
-    bottom: 220px;
+    right: 5%;
+    bottom: 45%;
     left: auto;
     transform: scale(var(--bubble-penny-scale));
     --bubble-text-left: 24%;
@@ -761,7 +764,11 @@ html { touch-action: manipulation; }
         --bubble-text-padding: 8px;
     }
     #speech_bubble_left { --bubble-text-left: 20%; }
-    #speech_bubble_right { --bubble-text-left: 22%; }
+    #speech_bubble_right {
+        right: 2%;
+        bottom: 45%;
+        --bubble-text-left: 22%;
+    }
 }
 
 /* Mobile (481px-600px) */
@@ -781,8 +788,8 @@ html { touch-action: manipulation; }
         --bubble-text-left: 20%;
     }
     #speech_bubble_right {
-        right: 7%;
-        bottom: 160px;
+        right: 2%;
+        bottom: 45%;
         --bubble-text-left: 22%;
     }
 }
