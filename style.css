@@ -77,7 +77,9 @@
 @font-face {
     font-family: "Pico12";
     src: url("fonts/PICO12__.TTF") format("truetype"),
-         url("fonts/pico12__.ttf") format("truetype");
+         url("fonts/pico12__.ttf") format("truetype"),
+         url("fonts/Pico12.ttf") format("truetype"),
+         url("fonts/pico12.ttf") format("truetype");
     font-display: swap;
 }
 
@@ -88,14 +90,14 @@ html { touch-action: manipulation; }
 :root {
     /* Desktop defaults (can be edited) */
     --dave-scale-desktop: 1.3;
-    --penny-scale-desktop: 1.6;
+    --penny-scale-desktop: 1.0;
     --spongebob-scale-desktop: 1.4;
     --bubble-dave-scale-desktop: 1;
     --bubble-penny-scale-desktop: 1;
 
     /* Mobile defaults (can be edited) */
     --dave-scale-mobile: 2;
-    --penny-scale-mobile: 1.2;
+    --penny-scale-mobile: 0.8;
     --spongebob-scale-mobile: 1.2;
     --bubble-dave-scale-mobile: 0.9;
     --bubble-penny-scale-mobile: 0.9;
@@ -120,7 +122,7 @@ html { touch-action: manipulation; }
     /* ---------- Penny positioning variables (Desktop) ---------- */
     --penny-left-desktop: auto;
     --penny-bottom-desktop: 13%;
-    --penny-right-desktop: -17%;
+    --penny-right-desktop: 0%;
 
     /* ---------- Penny positioning variables (Mobile) ---------- */
     --penny-left-mobile: auto;
@@ -142,7 +144,7 @@ html { touch-action: manipulation; }
     --dave-bottom: var(--dave-bottom-desktop);
     --dave-right: var(--dave-right-desktop);
 
-    --penny-left: var(--penny-left-mobile);
+    --penny-left: var(--penny-left-desktop);
     --penny-bottom: var(--penny-bottom-desktop);
     --penny-right: var(--penny-right-desktop);
 
@@ -672,8 +674,8 @@ html { touch-action: manipulation; }
     --bubble-text-color: black;
     --bubble-bottom: 30px;
     --bubble-text-top: 22%;
-    --bubble-text-height: 48%;
-    --bubble-text-width: 56%;
+    --bubble-text-height: 55%;
+    --bubble-text-width: 62%;
     --bubble-text-left: 21%;
     --bubble-text-padding: 12px;
 
@@ -726,15 +728,17 @@ html { touch-action: manipulation; }
     top: var(--bubble-text-top);
     left: var(--bubble-text-left);
     width: var(--bubble-text-width);
-    height: var(--bubble-text-height);
+    height: auto;
+    max-height: var(--bubble-text-height);
     text-align: center;
-    font-size: var(--bubble-font-size);
+    font-size: clamp(12px, var(--bubble-font-size), 32px);
     font-weight: bold;
     color: var(--bubble-text-color);
     line-height: 1.1;
     word-wrap: break-word;
     white-space: normal;
-    overflow-wrap: anywhere;
+    overflow-wrap: break-word;
+    word-break: break-word;
     padding: var(--bubble-text-padding);
     box-sizing: border-box;
     overflow: hidden;
@@ -748,12 +752,12 @@ html { touch-action: manipulation; }
 /* Ultra-mobile (<=480px) */
 @media (max-width: 480px) {
     .speechBubble {
-        --bubble-width: 29%;
+        --bubble-width: 50%;
         --bubble-max-width: 300px;
-        --bubble-font-size: 18px;
+        --bubble-font-size: 15px;
         --bubble-text-top: 23%;
-        --bubble-text-height: 50%;
-        --bubble-text-width: 58%;
+        --bubble-text-height: 52%;
+        --bubble-text-width: 62%;
         --bubble-text-padding: 8px;
     }
     #speech_bubble_left { --bubble-text-left: 20%; }
@@ -763,12 +767,12 @@ html { touch-action: manipulation; }
 /* Mobile (481px-600px) */
 @media (min-width: 481px) and (max-width: 600px) {
     .speechBubble {
-        --bubble-width: 29%;
+        --bubble-width: 44%;
         --bubble-max-width: 350px;
-        --bubble-font-size: 19px;
+        --bubble-font-size: 16px;
         --bubble-text-top: 22%;
-        --bubble-text-height: 50%;
-        --bubble-text-width: 57%;
+        --bubble-text-height: 52%;
+        --bubble-text-width: 62%;
         --bubble-text-padding: 10px;
     }
     #speech_bubble_left {
@@ -788,10 +792,10 @@ html { touch-action: manipulation; }
     .speechBubble {
         --bubble-width: 52%;
         --bubble-max-width: 450px;
-        --bubble-font-size: 21px;
+        --bubble-font-size: 19px;
         --bubble-text-top: 22%;
-        --bubble-text-height: 49%;
-        --bubble-text-width: 57%;
+        --bubble-text-height: 54%;
+        --bubble-text-width: 62%;
         --bubble-text-padding: 12px;
     }
     #speech_bubble_left {
@@ -811,10 +815,10 @@ html { touch-action: manipulation; }
     .speechBubble {
         --bubble-width: 29%;
         --bubble-max-width: 550px;
-        --bubble-font-size: 23px;
+        --bubble-font-size: 21px;
         --bubble-text-top: 22%;
-        --bubble-text-height: 48%;
-        --bubble-text-width: 55%;
+        --bubble-text-height: 54%;
+        --bubble-text-width: 62%;
         --bubble-text-padding: 14px;
     }
     #speech_bubble_left {
@@ -834,10 +838,10 @@ html { touch-action: manipulation; }
     .speechBubble {
         --bubble-width: 29%;
         --bubble-max-width: 650px;
-        --bubble-font-size: 25px;
+        --bubble-font-size: 23px;
         --bubble-text-top: 22%;
-        --bubble-text-height: 47%;
-        --bubble-text-width: 54%;
+        --bubble-text-height: 53%;
+        --bubble-text-width: 62%;
         --bubble-text-padding: 16px;
     }
     #speech_bubble_left {
